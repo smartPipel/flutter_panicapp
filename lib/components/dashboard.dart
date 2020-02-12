@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:panicapp/auth/auth.dart';
+import 'package:panicapp/collection/collections.dart';
+import 'package:toast/toast.dart';
 
 import 'alertLaporan.dart';
 
@@ -13,6 +16,18 @@ class UserDashboard extends StatefulWidget {
 
 class _UserDashboardState extends State<UserDashboard> {
   FirebaseUser user;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    initUser();
+  }
+
+  initUser() async {
+    user = await _auth.currentUser();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +58,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       ],
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    width: MediaQuery.of(context).size.width / 1.2,
+                    width: MediaQuery.of(context).size.width / 1.1,
                     height: MediaQuery.of(context).size.height / 6,
                     margin: EdgeInsets.only(top: 60, bottom: 30, left: 20),
                     child: Row(
@@ -51,51 +66,58 @@ class _UserDashboardState extends State<UserDashboard> {
                       children: <Widget>[
                         Container(
                           margin:
-                              EdgeInsets.only(right: 30, left: 20, bottom: 10),
+                              EdgeInsets.only(right: 20, left: 20, bottom: 10),
                           height: 65,
                           width: 65,
                           child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage("assets/images/image1.png"),
+                            backgroundImage: user?.photoUrl == null
+                                ? AssetImage("assets/images/image1.png")
+                                : NetworkImage("${user?.photoUrl}"),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 10),
+                          margin: EdgeInsets.only(top: 15),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                "${user.displayName}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    height: 2),
+                                "${user?.displayName != null ? user?.displayName : 'Terjadi Kesalahan'}",
+                                style: GoogleFonts.overpass(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                textAlign: TextAlign.end,
                               ),
                               Text(
-                                "${user.email}",
-                                style:
-                                    TextStyle(fontSize: 14, color: Colors.grey),
+                                "${user?.email != null ? user?.email : 'Terjadi Kesalahan'}",
+                                style: GoogleFonts.overpass(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
                               ),
-                              StreamBuilder<QuerySnapshot>(
-                                stream: Firestore.instance
-                                    .collection("user_phone")
-                                    .snapshots(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                                  if (snapshot.hasError)
-                                    return Text("${snapshot.error}");
-                                  switch (snapshot.connectionState) {
-                                    case ConnectionState.waiting:
-                                      return Text("Loading...");
-                                    default:
-                                      return ListView(
-                                        children: snapshot.data.documents
-                                            .map((DocumentSnapshot document) {
-                                          return Text("${document['phone_number']}");
-                                        }).toList(),
-                                      );
-                                  }
-                                },
-                              )
+                              user?.phoneNumber != null ? Text(
+                                "${user?.phoneNumber})}",
+                                style: fontSemi(14, Colors.black),
+                              ) :
+                              StreamBuilder(
+                                  stream: Firestore.instance
+                                      .collection('user_phone')
+                                      .document('${user?.uid}')
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    try{
+                                      if (!snapshot.hasData) {
+                                        return new Text("...", style: fontSemi(14, Colors.black),);
+                                      }else if(snapshot.connectionState == ConnectionState.waiting){
+                                        return new Text("Loading...", style: fontSemi(14, Colors.black),);
+                                      }else if(snapshot.connectionState == ConnectionState.none){
+                                        return new Text("none", style: fontSemi(14, Colors.black),);
+                                      }else if(snapshot.hasData){
+                                        var userDocument = snapshot.data;
+                                        return Text(userDocument["phone_number"], style: fontSemi(14, Colors.black),);
+                                      }
+                                    }catch(e){
+                                      return Text("");
+                                    }
+                                  }),
                             ],
                           ),
                         ),
@@ -103,8 +125,9 @@ class _UserDashboardState extends State<UserDashboard> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 320, top: 90),
+                    margin: EdgeInsets.only(left: 300, top: 60),
                     child: FloatingActionButton(
+                      mini: true,
                       backgroundColor: Colors.orangeAccent[400],
                       splashColor: Colors.orangeAccent[100],
                       tooltip: "Edit Profil",

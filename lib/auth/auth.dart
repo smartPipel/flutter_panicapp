@@ -10,11 +10,10 @@ class AuthServices with ChangeNotifier {
   FirebaseUser user;
   
 
-
-
   Future logout(BuildContext context) async {
     Navigator.of(context).pushReplacementNamed('/main');
-    return await fAuth.signOut();
+    await fAuth.signOut();
+    await gSignin.signOut();
   }
 
   Future<FirebaseUser> getUser() async {

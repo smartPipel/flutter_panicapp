@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:panicapp/auth/auth.dart';
+import 'package:panicapp/collection/collections.dart';
 import 'package:toast/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -17,6 +19,8 @@ class _LoginUserState extends State<LoginUser> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  
+  
 
   @override
   void initState() {
@@ -45,10 +49,10 @@ class _LoginUserState extends State<LoginUser> {
                 padding: EdgeInsets.only(top: 20),
                 child: buildGogleLoginBtn(context),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: buildFacebookLoginBtn(context),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.only(top: 20),
+              //   child: buildFacebookLoginBtn(context),
+              // ),
             ],
           ),
           inputText(),
@@ -96,10 +100,7 @@ class _LoginUserState extends State<LoginUser> {
       alignment: Alignment.center,
       child: Text(
         "Login",
-        style: TextStyle(
-          fontSize: 30,
-          color: Colors.orangeAccent,
-        ),
+        style: fontBold(30, Colors.orangeAccent),
       ),
     );
   }
@@ -131,10 +132,7 @@ class _LoginUserState extends State<LoginUser> {
       alignment: Alignment.center,
       child: Text(
         "Belum punya akun?",
-        style: TextStyle(
-          fontSize: 15,
-          color: Colors.black,
-        ),
+        style: fontSemi(15, Colors.black)
       ),
     );
   }
@@ -146,10 +144,7 @@ class _LoginUserState extends State<LoginUser> {
       },
       child: Text(
         " Daftar disini!",
-        style: TextStyle(
-          fontSize: 15,
-          color: Colors.blue,
-        ),
+        style: fontSemi(15, Colors.blue)
       ),
     );
   }
@@ -192,7 +187,7 @@ class _LoginUserState extends State<LoginUser> {
             validator: (String value) {
               if (value.isEmpty) {
                 return "* Password tidak boleh kosong";
-              } else if (value.length < 8) {
+              } else if (value.length < 6) {
                 return "* Password harus 8 karakter atau lebih";
               }
               return null;

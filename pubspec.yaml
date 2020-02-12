@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   splashscreen: ^1.2.0
-  google_fonts: ^0.2.0
+  google_fonts: ^0.3.8
   bottom_navy_bar: ^5.2.2
   http: ^0.12.0+2
   stopper: ^1.0.1

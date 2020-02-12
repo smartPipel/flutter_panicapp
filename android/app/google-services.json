@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "20798735598",
+    "firebase_url": "https://panicapp-1fdf2.firebaseio.com",
+    "project_id": "panicapp-1fdf2",
+    "storage_bucket": "panicapp-1fdf2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20798735598:android:fa22cc8b6bc6c4c1519fff",
+        "android_client_info": {
+          "package_name": "com.alfa.panicapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20798735598-0hmrs2sirunes98ueq6o4pbnl763ep5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alfa.panicapp",
+            "certificate_hash": "83cba2dc51691216d89b20760c96444dd22a9cb6"
+          }
+        },
+        {
+          "client_id": "20798735598-c34qvks1m99kkc8sgqdckoha3vsftv88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMHqNdlBn2ySenZaMam0R-g_6HR9hyynE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20798735598-c34qvks1m99kkc8sgqdckoha3vsftv88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20798735598:android:2986738db8337feb519fff",
+        "android_client_info": {
+          "package_name": "com.panic.panicapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20798735598-1t9n9gdd4phf75ppmq52m8o6ifs3g2rh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.panic.panicapp",
+            "certificate_hash": "a21fd43b8d4879bc1c12e448fce267c89c096712"
+          }
+        },
+        {
+          "client_id": "20798735598-le5uv812e5mikoufqi347ae9vnvi365t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.panic.panicapp",
+            "certificate_hash": "86691f009db0d7da760573c6447c1ae7ef4ecaed"
+          }
+        },
+        {
+          "client_id": "20798735598-c34qvks1m99kkc8sgqdckoha3vsftv88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMHqNdlBn2ySenZaMam0R-g_6HR9hyynE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20798735598-c34qvks1m99kkc8sgqdckoha3vsftv88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

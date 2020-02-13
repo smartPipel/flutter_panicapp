@@ -1,4 +1,4 @@
-import 'package:panicapp/auth/auth.dart';
+import 'package:panicapp/model/auth/auth.dart';
 import 'package:panicapp/components/dashboard.dart';
 import 'package:panicapp/components/menu.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -14,13 +14,15 @@ class User extends StatefulWidget {
 
 class _UserState extends State<User> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Home", style: TextStyle(color: Colors.white,letterSpacing: 1),),
+        title: Text(
+          "Home",
+          style: TextStyle(color: Colors.white, letterSpacing: 1),
+        ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
             color: Colors.orangeAccent[100],
@@ -34,7 +36,10 @@ class _UserState extends State<User> {
         elevation: 0,
         actions: <Widget>[
           PopupMenuButton<String>(
-            icon: Icon(EvaIcons.moreHorizotnalOutline,color: Colors.white,),
+            icon: Icon(
+              EvaIcons.moreHorizotnalOutline,
+              color: Colors.white,
+            ),
             padding: EdgeInsets.only(top: 5, right: 20),
             onSelected: pilihAksi,
             itemBuilder: (BuildContext context) {
@@ -48,9 +53,10 @@ class _UserState extends State<User> {
           )
         ],
       ),
-      body: UserDashboard(),
+      body:UserDashboard(),
     );
   }
+
   pilihAksi(String pilih) {
     if (pilih == Constants.logout) {
       AuthServices().logout(context);

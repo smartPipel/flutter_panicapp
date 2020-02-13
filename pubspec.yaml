@@ -34,6 +34,9 @@ dependencies:
   google_sign_in: ^4.1.1
   font_awesome_flutter:
   timeago: ^2.0.26
+  fab_circular_menu: ^0.1.4
+  location: ^2.3.5
+  geocoder: ^0.2.1
 
 dev_dependencies:
   flutter_test:

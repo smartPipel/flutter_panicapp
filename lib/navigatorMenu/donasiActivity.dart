@@ -1,4 +1,4 @@
-import 'package:panicapp/auth/auth.dart';
+import 'package:panicapp/model/auth/auth.dart';
 import 'package:panicapp/components/menu.dart';
 import 'package:flutter/material.dart';
 

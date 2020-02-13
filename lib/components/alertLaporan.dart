@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 
 class Alert extends StatelessWidget {
@@ -9,7 +11,7 @@ class Alert extends StatelessWidget {
     );
   }
 
- alertDialogLaporan(BuildContext context, String kejadian, String images) {
+ alertDialogLaporan(BuildContext context, String kejadian, String images, String nama, String email, String photo, String uid) {
    return AlertDialog(
     elevation: 10,
     content: Container(
@@ -21,19 +23,19 @@ class Alert extends StatelessWidget {
             width: 80,
             height: 80,
             child: CircleAvatar(
-              backgroundImage: AssetImage(images),
+              backgroundImage: NetworkImage(photo),
             ),
           ),
           Container(
             child: Text(
-              "Alvin Ferdian Akbar",
+              nama,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             margin: EdgeInsets.only(top: 30),
           ),
           Container(
             child: Text(
-              "alvinakbar095@gmail.com",
+              email,
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
@@ -57,8 +59,18 @@ class Alert extends StatelessWidget {
             child: ButtonTheme(
               minWidth: 110,
               child: FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
+                onPressed: () async{
+                  Firestore.instance.collection("laporan").add({
+                    'jenis_laporan': kejadian,
+                    'lokasi': "Jl. Gadang Gg 21c",
+                    'nama_pelapor': nama,
+                    'user_photo': photo,
+                    'waktu': new DateTime.now(),
+                    'uid': uid,
+                  }).whenComplete((){
+                    Toast.show("Berhasil Upload", context, duration: Toast.LENGTH_LONG);
+                    Navigator.pop(context);
+                  }); 
                 },
                 textColor: Colors.white,
                 color: Colors.green,

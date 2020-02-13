@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:panicapp/auth/auth.dart';
+import 'package:panicapp/model/auth/auth.dart';
 import 'package:panicapp/collection/collections.dart';
 import 'package:toast/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';

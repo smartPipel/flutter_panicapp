@@ -42,7 +42,7 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
               height: 80,
               width: 80,
               child: CircleAvatar(
-                backgroundImage: ds.data['user_photo'] != "null" ? NetworkImage(ds.data['user_photo']) : AssetImage("assets/images/user.png"),
+                backgroundImage: ds.data['user_photo'] != "null" ? NetworkImage(ds.data['user_photo']) : AssetImage("assets/images/userPhoto.png"),
               ),
             ),
             Container(
@@ -79,9 +79,9 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
           ],
         ),
         Container(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.only(right:20),
           alignment: Alignment.bottomRight,
-          child: Text(timeago.format(ds.data['waktu'].toDate()).toString()),
+          child: Text(timeago.format(ds.data['waktu'].toDate()).toString(), style: fontSemi(10, Colors.pink),),
         ),
       ],
     ),

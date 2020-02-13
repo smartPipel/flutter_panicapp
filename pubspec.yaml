@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sweet_alert_dialogs: any
   splashscreen: ^1.2.0
   google_fonts: ^0.3.8
   bottom_navy_bar: ^5.2.2
@@ -26,14 +27,13 @@ dependencies:
   stopper: ^1.0.1
   firebase_auth: any
   cloud_firestore: ^0.12.9+5
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   eva_icons_flutter: any
   flare_flutter: any
   toast: ^0.1.5
   google_sign_in: ^4.1.1
   font_awesome_flutter:
+  timeago: ^2.0.26
 
 dev_dependencies:
   flutter_test:

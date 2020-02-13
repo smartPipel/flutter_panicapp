@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:panicapp/auth/auth.dart';
+import 'package:panicapp/collection/collections.dart';
+import 'package:panicapp/components/cardReport.dart';
 import 'package:panicapp/components/menu.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +14,13 @@ class LaporanAct extends StatefulWidget {
 }
 
 class _LaporanActState extends State<LaporanAct> {
+  final Firestore _firestore = Firestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +54,33 @@ class _LaporanActState extends State<LaporanAct> {
         ],
       ),
       body: SafeArea(
-        child: ListView(
-          children: <Widget>[
-            
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: StreamBuilder<QuerySnapshot>(
+            stream: _firestore.collection('laporan').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.deepPurple,
+                  ),
+                );
+              }
+              else if(snapshot.connectionState == ConnectionState.none){
+                return Text("None");
+              }else if(!snapshot.hasData){
+                Center(child: Text("Tai"));
+              }
+              return ListView.builder(
+                itemCount:  snapshot.data.documents.length,
+                itemBuilder: (context, index) {
+                  return reportCard(
+                      context,
+                      snapshot.data.documents[index]);
+                },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -53,36 +89,8 @@ class _LaporanActState extends State<LaporanAct> {
   pilihAksi(String pilih) {
     if (pilih == Constants.logout) {
       AuthServices().logout(context);
-      
     }
   }
-}
 
-Widget buildLaporanListView(BuildContext context, String username,
-    String alamat, String email, String fotoProfil, String jenisLaporan) {
-  return Column(
-    children: <Widget>[
-      ListTile(
-        title: Text(jenisLaporan),
-      ),
-      Row(
-        children: <Widget>[
-          ListTile(
-            leading: Image.asset(
-              fotoProfil,
-              height: 50,
-              width: 50,
-            ),
-          ),
-          ListTile(
-            title: Text(username),
-            subtitle: Text(email),
-          ),
-          ListTile(
-            subtitle: Text(alamat),
-          )
-        ],
-      ),
-    ],
-  );
+  
 }

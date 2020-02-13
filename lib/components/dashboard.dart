@@ -64,6 +64,20 @@ class _UserDashboardState extends State<UserDashboard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     boxShadow: [
+                        //       new BoxShadow(
+                        //           color: Colors.white,
+                        //           offset: new Offset(0, -3),
+                        //           blurRadius: 6)
+                        //     ],
+                        //     borderRadius: BorderRadius.circular(15),
+                        //   ),
+                        //   width: MediaQuery.of(context).size.width / 1.1,
+                        //   height: MediaQuery.of(context).size.height / 6,
+                        // ),
                         Container(
                           margin:
                               EdgeInsets.only(right: 20, left: 20, bottom: 10),
@@ -93,31 +107,46 @@ class _UserDashboardState extends State<UserDashboard> {
                                 style: GoogleFonts.overpass(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
-                              user?.phoneNumber != null ? Text(
-                                "${user?.phoneNumber})}",
-                                style: fontSemi(14, Colors.black),
-                              ) :
-                              StreamBuilder(
-                                  stream: Firestore.instance
-                                      .collection('user_phone')
-                                      .document('${user?.uid}')
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    try{
-                                      if (!snapshot.hasData) {
-                                        return new Text("...", style: fontSemi(14, Colors.black),);
-                                      }else if(snapshot.connectionState == ConnectionState.waiting){
-                                        return new Text("Loading...", style: fontSemi(14, Colors.black),);
-                                      }else if(snapshot.connectionState == ConnectionState.none){
-                                        return new Text("none", style: fontSemi(14, Colors.black),);
-                                      }else if(snapshot.hasData){
-                                        var userDocument = snapshot.data;
-                                        return Text(userDocument["phone_number"], style: fontSemi(14, Colors.black),);
-                                      }
-                                    }catch(e){
-                                      return Text("");
-                                    }
-                                  }),
+                              user?.phoneNumber != null
+                                  ? Text(
+                                      "${user?.phoneNumber})}",
+                                      style: fontSemi(14, Colors.black),
+                                    )
+                                  : StreamBuilder(
+                                      stream: Firestore.instance
+                                          .collection('user_phone')
+                                          .document('${user?.uid}')
+                                          .snapshots(),
+                                      builder: (context, snapshot) {
+                                        try {
+                                          if (!snapshot.hasData) {
+                                            return new Text(
+                                              "...",
+                                              style: fontSemi(14, Colors.black),
+                                            );
+                                          } else if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return new Text(
+                                              "Loading...",
+                                              style: fontSemi(14, Colors.black),
+                                            );
+                                          } else if (snapshot.connectionState ==
+                                              ConnectionState.none) {
+                                            return new Text(
+                                              "none",
+                                              style: fontSemi(14, Colors.black),
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            var userDocument = snapshot.data;
+                                            return Text(
+                                              userDocument["phone_number"],
+                                              style: fontSemi(14, Colors.black),
+                                            );
+                                          }
+                                        } catch (e) {
+                                          return Text("");
+                                        }
+                                      }),
                             ],
                           ),
                         ),

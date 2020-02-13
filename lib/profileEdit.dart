@@ -13,6 +13,7 @@ class _EditProfileState extends State<EditProfile> {
         title: Text("Edit Profil"),
       ),
       
+      
     );
   }
 }

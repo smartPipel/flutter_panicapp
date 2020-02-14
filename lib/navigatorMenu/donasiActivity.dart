@@ -11,39 +11,9 @@ class _DonasiState extends State<Donasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Donasi",
-          style: TextStyle(color: Colors.white, letterSpacing: 1),
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            color: Colors.orangeAccent[100],
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            icon: Icon(Icons.more_horiz),
-            padding: EdgeInsets.only(top: 5, right: 20),
-            onSelected: pilihAksi,
-            itemBuilder: (BuildContext context) {
-              return Constants.pilihan.map((String pilihan) {
-                return PopupMenuItem<String>(
-                  value: pilihan,
-                  child: Row(
-                    children: <Widget>[
-                      Text(pilihan),
-                    ],
-                  ),
-                );
-              }).toList();
-            },
-          )
-        ],
-      ),
+      body: SafeArea(child: Container(child: Center(
+        child: Image.asset("assets/images/coming_soon.png"),
+      ),)),
     );
   }
 

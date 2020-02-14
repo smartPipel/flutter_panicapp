@@ -7,7 +7,8 @@ import 'package:panicapp/components/alertLaporan.dart';
     String icon,
     String caption,
     String nama, String email, String photo,
-    String uid
+    String uid,
+    String location
   ) {
     return Container(
       decoration: BoxDecoration(
@@ -40,7 +41,8 @@ import 'package:panicapp/components/alertLaporan.dart';
                               nama,
                               email,
                               photo,
-                              uid),
+                              uid,
+                              location),
                           context: context);
                     },
                     iconSize: 80,

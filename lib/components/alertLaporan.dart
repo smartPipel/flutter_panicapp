@@ -11,7 +11,7 @@ class Alert extends StatelessWidget {
     );
   }
 
- alertDialogLaporan(BuildContext context, String kejadian, String images, String nama, String email, String photo, String uid) {
+ alertDialogLaporan(BuildContext context, String kejadian, String images, String nama, String email, String photo, String uid, String lokasi) {
    return AlertDialog(
     elevation: 10,
     content: Container(
@@ -62,7 +62,7 @@ class Alert extends StatelessWidget {
                 onPressed: () async{
                   Firestore.instance.collection("laporan").add({
                     'jenis_laporan': kejadian,
-                    'lokasi': "Jl. Gadang Gg 21c",
+                    'lokasi': lokasi,
                     'nama_pelapor': nama,
                     'user_photo': photo,
                     'waktu': new DateTime.now(),

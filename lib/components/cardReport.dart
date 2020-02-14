@@ -55,9 +55,12 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                       child: Text(
                         ds.data['nama_pelapor'],
                         style: fontBold(18, Colors.black),
+                        overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 10, left: 10),
+                    width: 190,
                     child: Row(
                       children: <Widget>[
                         Container(
@@ -66,9 +69,14 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                             height: 50,
                             child: Image.asset(
                                 "assets/images/icons/location.png")),
-                        Text(
-                          ds.data['lokasi'],
-                          style: fontSemi(16, Colors.black),
+                        Container(
+                          width: 150,
+                          child: Text(
+                            ds.data['lokasi'],
+                            style: fontSemi(14, Colors.black),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
                         ),
                       ],
                     ),

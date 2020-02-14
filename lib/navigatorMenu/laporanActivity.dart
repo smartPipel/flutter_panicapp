@@ -21,7 +21,7 @@ class LaporanAct extends StatefulWidget {
 
 class _LaporanActState extends State<LaporanAct> {
   final Firestore _firestore = Firestore.instance;
-
+  double _width = 50;
   @override
   void initState() {
     super.initState();
@@ -30,123 +30,105 @@ class _LaporanActState extends State<LaporanAct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Laporan",
-          style: TextStyle(letterSpacing: 1),
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            color: Colors.orangeAccent[100],
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            icon: Icon(Icons.more_horiz),
-            padding: EdgeInsets.only(top: 5, right: 20),
-            onSelected: pilihAksi,
-            itemBuilder: (BuildContext context) {
-              return Constants.pilihan.map((String pilihan) {
-                return PopupMenuItem<String>(
-                  value: pilihan,
-                  child: Text(pilihan),
-                );
-              }).toList();
-            },
-          )
-        ],
-      ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top:8.0),
-          child: Stack(
-            children: <Widget>[
-              StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('laporan').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.deepPurple,
+        child: Column(
+          children: <Widget>[
+            Container(
+              child:Container(
+                margin: EdgeInsets.only(left: 15),
+                alignment: Alignment.centerLeft,
+                child: AnimatedContainer(
+                  curve: Curves.easeInOut,
+                  alignment: AlignmentDirectional.topEnd,
+                  margin: EdgeInsets.only(top: 40),
+                  duration: Duration(milliseconds: 1000),
+                  height: 50,
+                  width: _width,
+                  decoration: BoxDecoration(
+                      color: Colors.orangeAccent[100],
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(25),
+                          bottomRight: Radius.circular(25))),
+                  child: Row(
+                    children: <Widget>[
+                     //write code here
+                  
+
+                     //end
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(25),
+                            bottomRight: Radius.circular(25),
+                          ),
+                          color: Colors.orangeAccent[100],
+                        ),
+                        child: IconButton(
+                            icon: _width == 50
+                                ? Icon(
+                                    Icons.sort,
+                                    color: Colors.white,
+                                  )
+                                : Icon(
+                                    EvaIcons.arrowIosBackOutline,
+                                    color: Colors.white,
+                                  ),
+                            onPressed: () {
+                              if (_width == 50) {
+                                setState(() {
+                                  _width = 200;
+                                });
+                              } else if (_width == 200) {
+                                setState(() {
+                                  _width = 50;
+                                });
+                              }
+                            }),
                       ),
-                    );
-                  } else if (snapshot.connectionState == ConnectionState.none) {
-                    return Text("None");
-                  } else if (!snapshot.hasData) {
-                    Center(child: Text("Tai"));
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data.documents.length,
-                    itemBuilder: (context, index) {
-                      return reportCard(
-                          context, snapshot.data.documents[index]);
-                    },
-                  );
-                },
+                    ],
+                  ),
+                ),
               ),
-              FabCircularMenu(
-                  animationDuration: Duration(seconds: 1),
-                  ringWidth: 100,
-                  ringDiameter: 250,
-                  fabColor: Colors.greenAccent,
-                  fabOpenIcon: Icon(EvaIcons.arrowIosBack),
-                  fabCloseIcon: Icon(EvaIcons.arrowIosForward),
-                  child: Container(),
-                  options: <Widget>[
-                    IconButton(
-                        iconSize: 40,
-                        color: Colors.blue,
-                        tooltip: "Lokasi",
-                        icon: Icon(EvaIcons.pin),
-                        onPressed: () {
-                          getUserLocation().then((r){
-                            Toast.show("${r.addressLine}", context, duration: Toast.LENGTH_LONG);
-                          });
-                        }),
-                    IconButton(
-                        iconSize: 40,
-                        color: Colors.orangeAccent,
-                        tooltip: "Edit Profile",
-                        icon: Icon(EvaIcons.edit),
-                        onPressed: () {}),
-                    IconButton(
-                        color: Colors.red,
-                        iconSize: 40,
-                        tooltip: "Logout",
-                        icon: Icon(EvaIcons.closeCircle),
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return RichAlertDialog(
-                                  alertTitle: richTitle("Logout?"),
-                                  alertSubtitle:
-                                      richSubtitle("Apakah Anda Yakin?"),
-                                  alertType: RichAlertType.INFO,
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("OK"),
-                                      onPressed: () {
-                                        AuthServices().logout(context);
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                    FlatButton(
-                                      child: Text("Cancel"),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ],
-                                );
-                              });
-                        })
-                  ])
-            ],
-          ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height/1.5,
+              margin: EdgeInsets.only(top:20, bottom: 20),
+              child: Stack(
+                children: <Widget>[
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('laporan').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(  
+                              backgroundColor: Colors.orangeAccent),
+                        );
+                      } else if (snapshot.connectionState == ConnectionState.none) {
+                        return Text("None");
+                      } else if (!snapshot.hasData) {
+                        Center(child: Text("No Data Found", style: fontBold(40, Colors.orangeAccent),));
+                      }
+                      return Container(
+                        child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          itemCount: snapshot.data.documents.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: EdgeInsets.only(bottom: 8.0),
+                              child: reportCard(
+                                  context, snapshot.data.documents[index]),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

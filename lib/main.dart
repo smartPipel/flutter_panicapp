@@ -56,20 +56,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            end: Alignment.topCenter,
-            begin: Alignment.bottomCenter,
-            colors: <Color>[
-              Colors.white,
-              Colors.white,
-              Colors.white,
-              Colors.white,
-              Colors.white,
-              Colors.orangeAccent
-            ],
-          ),
-        ),
+        
         child: SafeArea(
           child: ListView(
             children: <Widget>[
@@ -77,7 +64,7 @@ class _MyAppState extends State<MyApp> {
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height/1.2,
+                  height: MediaQuery.of(context).size.height/1,
                   child: Padding(
                       padding: EdgeInsets.only(top: 20, left: 30, right: 30),
                       child: LoginUser()),

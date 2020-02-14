@@ -7,31 +7,23 @@ import 'package:toast/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginUser extends StatefulWidget {
+class RegisterUser extends StatefulWidget {
   @override
-  _LoginUserState createState() => _LoginUserState();
+  _RegisterUserState createState() => _RegisterUserState();
 }
 
-class _LoginUserState extends State<LoginUser> {
+class _RegisterUserState extends State<RegisterUser> {
   FirebaseUser user;
   String _email;
   String _password;
+  String _username;
+  String _telephone;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  
-  
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _telephoneController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    AuthServices().getUser().then((user) {
-      if(user != null){
-        Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName("/"));
-        Toast.show("Selamat Datang ${user.displayName}", context, duration: Toast.LENGTH_SHORT);
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,29 +33,14 @@ class _LoginUserState extends State<LoginUser> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 50),
-            child: buildLoginTextTitle(),
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: buildGogleLoginBtn(context),
-              ),
-              // Padding(
-              //   padding: EdgeInsets.only(top: 20),
-              //   child: buildFacebookLoginBtn(context),
-              // ),
-            ],
+            child: buildRegisterTextTitle(),
           ),
           inputText(),
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                buildTextRegister(),
-                buildTextRegisterTap(context)
-              ],
+              children: <Widget>[buildTextRegisterTap(context)],
             ),
           ),
           buildButtonLogin(context),
@@ -76,17 +53,25 @@ class _LoginUserState extends State<LoginUser> {
     return Padding(
       padding: EdgeInsets.only(top: 30),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(25),
         child: ButtonTheme(
           minWidth: 400,
           height: 50,
           child: RaisedButton(
             color: Colors.orangeAccent,
-            child: Text("Login"),
+            child: Text(
+              "Register",
+              style: fontBold(16, Colors.white),
+            ),
             onPressed: () async{
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                await AuthServices().emailSignIn(_usernameController.text.trim(), _passwordController.text.trim(), context);
+                await AuthServices().emailSignUp(
+                    _emailController.text.trim(),
+                    _passwordController.text.trim(),
+                    _username.trim(),
+                    _telephone.trim(),
+                    context);
               }
             },
           ),
@@ -95,44 +80,12 @@ class _LoginUserState extends State<LoginUser> {
     );
   }
 
-  Align buildLoginTextTitle() {
+  Align buildRegisterTextTitle() {
     return Align(
       alignment: Alignment.center,
       child: Text(
-        "Login",
+        "Register",
         style: fontBold(30, Colors.orangeAccent),
-      ),
-    );
-  }
-
-  Widget buildGogleLoginBtn(BuildContext context) {
-    return IconButton(
-      icon: Icon(FontAwesomeIcons.google),
-      color: Colors.red,
-      iconSize: 35,
-      onPressed: () {
-        AuthServices().googleSignIn(context);
-      },
-    );
-  }
-
-  Widget buildFacebookLoginBtn(BuildContext context) {
-    return IconButton(
-      icon: Icon(FontAwesomeIcons.facebook),
-      color: Colors.blue,
-      iconSize: 35,
-      onPressed: () {
-        AuthServices().googleSignIn(context);
-      },
-    );
-  }
-
-  Widget buildTextRegister() {
-    return Align(
-      alignment: Alignment.center,
-      child: Text(
-        "Belum punya akun?",
-        style: fontSemi(15, Colors.black)
       ),
     );
   }
@@ -140,12 +93,9 @@ class _LoginUserState extends State<LoginUser> {
   FlatButton buildTextRegisterTap(BuildContext context) {
     return FlatButton(
       onPressed: () {
-        Navigator.pushNamed(context, "/userRegister");
+        Navigator.pop(context);
       },
-      child: Text(
-        " Daftar disini!",
-        style: fontSemi(15, Colors.blue)
-      ),
+      child: Text("Login", style: fontSemi(15, Colors.blue)),
     );
   }
 
@@ -155,8 +105,72 @@ class _LoginUserState extends State<LoginUser> {
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom:40),
+            margin: EdgeInsets.only(bottom: 20),
             child: TextFormField(
+              onSaved: (val) {
+                _username = val;
+              },
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return "* Username tidak boleh kosong";
+                }
+                return null;
+              },
+              textInputAction: TextInputAction.next,
+              style: fontBold(16, Colors.black),
+              controller: _usernameController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  FontAwesomeIcons.user,
+                  color: Colors.orangeAccent,
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
+                hintText: "Username",
+                hintStyle: fontSemi(16, Colors.grey),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 20),
+            child: TextFormField(
+              style: fontBold(16, Colors.black),
+              onSaved: (val) {
+                _telephone = val;
+              },
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return "* Telephone tidak boleh kosong";
+                }
+                
+              },
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.number,
+              controller: _telephoneController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.phone_iphone,
+                  color: Colors.orangeAccent,
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                ),
+                hintText: "Telephone",
+                hintStyle: fontSemi(16, Colors.grey),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orange),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 20),
+            child: TextFormField(
+              style: fontBold(16, Colors.black),
               onSaved: (val) {
                 _email = val;
               },
@@ -167,8 +181,10 @@ class _LoginUserState extends State<LoginUser> {
                 return null;
               },
               textInputAction: TextInputAction.next,
-              controller: _usernameController,
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
+                hintStyle: fontSemi(16, Colors.grey),
                 prefixIcon: Icon(
                   Icons.email,
                   color: Colors.orangeAccent,
@@ -187,6 +203,7 @@ class _LoginUserState extends State<LoginUser> {
             onSaved: (val) {
               _email = val;
             },
+            style: fontBold(16, Colors.black),
             validator: (String value) {
               if (value.isEmpty) {
                 return "* Password tidak boleh kosong";
@@ -200,6 +217,7 @@ class _LoginUserState extends State<LoginUser> {
             keyboardType: TextInputType.visiblePassword,
             controller: _passwordController,
             decoration: InputDecoration(
+              hintStyle: fontSemi(16, Colors.grey),
               prefixIcon: Icon(
                 FontAwesomeIcons.key,
                 color: Colors.orangeAccent,

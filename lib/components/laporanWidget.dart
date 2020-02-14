@@ -188,7 +188,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                                 child: infoMenu(
                                     context,
                                     "collections",
-                                    "${snapshot.data.documents.length != null ? snapshot.data.documents.length : "0"}",
+                                    "${snapshot.data.documents.length != null ? snapshot.data.documents.length : 0}",
                                     "Kecelakaan",
                                     Colors.greenAccent),
                               );
@@ -207,7 +207,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                                 child: infoMenu(
                                     context,
                                     "collections",
-                                    "${snapshot.data.documents.length != null ? snapshot.data.documents.length : "0"}",
+                                    "${snapshot.data.documents.length != null ? snapshot.data.documents.length : 0}",
                                     "Kriminalitas",
                                     Colors.blueAccent),
                               );
@@ -224,7 +224,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                                 child: infoMenu(
                                     context,
                                     "collections",
-                                    "${snapshot.data.documents.length != null ? snapshot.data.documents.length : "0"}",
+                                    "${snapshot.data.documents.length != null ? snapshot.data.documents.length : 0}",
                                     "Jumlah",
                                     Colors.black),
                               );

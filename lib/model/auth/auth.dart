@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,6 +11,8 @@ class AuthServices with ChangeNotifier {
   final FirebaseAuth fAuth = FirebaseAuth.instance;
   final GoogleSignIn gSignin = GoogleSignIn();
   FirebaseUser user;
+  String photoUri;
+  
   
 
   Future logout(BuildContext context) async {
@@ -37,31 +42,35 @@ class AuthServices with ChangeNotifier {
     }
   }
 
-  void emailSignUp(String email, String password, String username,
-      String telephone, BuildContext context) async {
+  Future<FirebaseUser> emailSignUp(String email, String password, String username,
+    String telephone, BuildContext context) async {
     FirebaseUser user;
     try {
       user = (await fAuth.createUserWithEmailAndPassword(
               email: email, password: password))
           .user;
-
+      
       Firestore.instance
           .collection("user_phone")
-          .document("${user.uid}")
-          .setData({"phone_Number": telephone});
-
+          .document("${user?.uid}")
+          .setData({"phone_number": telephone});
+     
+      
       UserUpdateInfo userUpdateInfo = UserUpdateInfo();
+      
       userUpdateInfo.displayName = username;
-      await user.updateProfile(userUpdateInfo);
-      await user.reload();
+      user.updateProfile(userUpdateInfo);
+      
+      
     } catch (e) {
       print("Maaf Ada Kesalahan ${e.toString()}");
     } finally {
+      
       user != null
           ? Navigator.pushNamedAndRemoveUntil(
               context, "/home", ModalRoute.withName("/"))
           : Toast.show("Gagal Register", context, duration: Toast.LENGTH_SHORT);
-    }
+     }
   }
 
   Future googleSignIn(context) async {

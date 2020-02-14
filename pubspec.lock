@@ -49,7 +49,21 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.11"
+    version: "0.13.2+1"
+  cloud_firestore_platform_interface:
+    dependency: transitive
+    description:
+      name: cloud_firestore_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  cloud_firestore_web:
+    dependency: transitive
+    description:
+      name: cloud_firestore_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+3"
   collection:
     dependency: transitive
     description:
@@ -85,13 +99,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  fab_circular_menu:
-    dependency: "direct main"
-    description:
-      name: fab_circular_menu
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   firebase:
     dependency: transitive
     description:
@@ -141,32 +148,18 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+2"
-  flare_dart:
-    dependency: transitive
-    description:
-      name: flare_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.3"
-  flare_flutter:
+  firebase_storage:
     dependency: "direct main"
     description:
-      name: flare_flutter
+      name: firebase_storage
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "3.1.1"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_flexible_toast:
-    dependency: "direct main"
-    description:
-      name: flutter_flexible_toast
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -227,7 +220,7 @@ packages:
     source: hosted
     version: "0.8.3"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -310,6 +303,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   quiver:
     dependency: transitive
     description:
@@ -322,13 +322,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  slide_button:
-    dependency: "direct main"
-    description:
-      name: slide_button
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.8"
   sliding_up_panel:
     dependency: "direct main"
     description:
@@ -357,13 +350,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
-  stopper:
-    dependency: "direct main"
-    description:
-      name: stopper
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   stream_channel:
     dependency: transitive
     description:

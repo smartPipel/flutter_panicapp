@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:panicapp/components/login_ui.dart';
 import 'package:panicapp/home.dart';
 import 'package:panicapp/profileEdit.dart';
@@ -26,22 +29,33 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+
   @override
+  void initState() {
+    super.initState();
+
+    loadData();
+  }
+
+  Future<Timer> loadData() async {
+  return new Timer(Duration(seconds: 8), onDoneLoading);
+  }
+
+  onDoneLoading() async{
+    Navigator.pushNamedAndRemoveUntil(context, '/main', ModalRoute.withName("/"));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SplashScreen(
-      seconds: 2,
-      photoSize: 50,
-      onClick: (){
-        Navigator.pushNamedAndRemoveUntil(context, 'main', ModalRoute.withName("/"));
-      },
-      image: Image.asset(
-        "assets/images/icons/icon.png",
-        fit: BoxFit.cover,
+    return SafeArea(
+          child: Container(
+        color: Colors.white,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Center(
+          child: FlareActor("assets/anims/panic_loading.flr", alignment:Alignment.center, fit:BoxFit.contain, animation:"Untitled"),
+        ),
       ),
-      backgroundColor: Colors.white,
-      loaderColor: Colors.orangeAccent,
-      navigateAfterSeconds: MyApp(),
     );
   }
 }
@@ -56,15 +70,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        
         child: SafeArea(
           child: ListView(
             children: <Widget>[
-              
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height/1,
+                  height: MediaQuery.of(context).size.height / 1,
                   child: Padding(
                       padding: EdgeInsets.only(top: 20, left: 30, right: 30),
                       child: LoginUser()),

@@ -10,7 +10,8 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
     height: MediaQuery.of(context).size.height / 3.2,
     margin: EdgeInsets.only(top: 10, left: 15, right: 15),
     decoration: BoxDecoration(
-      color: Colors.grey[200],
+      color: ds.data['jenis_laporan'] == "Kebakaran" ? Colors.orangeAccent[100] 
+                  : ds.data['jenis_laporan'] == "Kriminalitas" ? Colors.blueAccent[100] : Colors.greenAccent[100],
       borderRadius: BorderRadius.circular(20),
     ),
     child: Column(
@@ -22,16 +23,16 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
               alignment: Alignment.center,
               child: Text(
                 ds.data['jenis_laporan'],
-                style: fontBold(20, Colors.black),
+                style: fontBold(20, Colors.white),
               )),
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: ds.data['jenis_laporan'] == "Kebakaran" ? Colors.orangeAccent 
                   : ds.data['jenis_laporan'] == "Kriminalitas" ? Colors.blueAccent : Colors.greenAccent,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
             boxShadow: [
               new BoxShadow(
-                  color: Colors.grey, offset: new Offset(0, 3), blurRadius: 6)
+                  color: Colors.grey, offset: new Offset(0, 1), blurRadius: 6)
             ],
           ),
         ),
@@ -54,7 +55,7 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Text(
                         ds.data['nama_pelapor'],
-                        style: fontBold(18, Colors.black),
+                        style: fontBold(18, Colors.white),
                         overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                       )),
@@ -73,7 +74,7 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                           width: 150,
                           child: Text(
                             ds.data['lokasi'],
-                            style: fontSemi(14, Colors.black),
+                            style: fontSemi(14, Colors.white),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -96,8 +97,6 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
   );
 
 }
-  DateTime parseTime(dynamic date) {
-    return Platform.isIOS ? (date as Timestamp).toDate() : (date as DateTime);
-  }
+ 
 
 

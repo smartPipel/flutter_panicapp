@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -23,12 +24,14 @@ class _UserDashboardState extends State<UserDashboard> {
   double _width = 50;
   String username = "${user?.displayName}";
   String email = "${user?.email}";
+  bool refreshPress = false;
+  
 
   @override
   void initState() {
     super.initState();
     initUser();
-    getUserLocation().then((loc){
+    getUserLocation().then((loc) {
       setState(() {
         userLocation = loc.addressLine;
       });
@@ -55,7 +58,7 @@ class _UserDashboardState extends State<UserDashboard> {
                   curve: Curves.easeInOut,
                   alignment: AlignmentDirectional.topEnd,
                   margin: EdgeInsets.only(top: 40),
-                  duration: Duration(milliseconds: 1000),
+                  duration: Duration(milliseconds: 500),
                   height: 50,
                   width: _width,
                   decoration: BoxDecoration(
@@ -133,6 +136,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                     });
                                   });
                                   setState(() {
+                                    refreshPress = true;
                                     username = "${user?.displayName}";
                                     email = "${user?.email}";
                                   });
@@ -191,9 +195,9 @@ class _UserDashboardState extends State<UserDashboard> {
                         decoration: BoxDecoration(
                             boxShadow: [
                               new BoxShadow(
-                                  color: Colors.grey,
-                                  offset: new Offset(0, 3),
-                                  blurRadius: 6)
+                                  color: Colors.grey[100],
+                                  offset: new Offset(0, 0),
+                                  blurRadius: 10)
                             ],
                             borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
@@ -209,8 +213,9 @@ class _UserDashboardState extends State<UserDashboard> {
                               Align(
                                 alignment: Alignment.center,
                                 child: Container(
-                                  width: 70,
-                                  height: 70,
+                                  width: MediaQuery.of(context).size.height / 7,
+                                  height:
+                                      MediaQuery.of(context).size.height / 7,
                                   margin: EdgeInsets.only(bottom: 20),
                                   child: CircleAvatar(
                                     backgroundImage: user?.photoUrl == null
@@ -245,7 +250,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                           Container(
                                             width: 200,
                                             child: Text(
-                                              username,
+                                              refreshPress == true ? "${user?.displayName}" : username,
                                               style: fontBold(18, Colors.black),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
@@ -268,7 +273,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                           Container(
                                             width: 200,
                                             child: Text(
-                                              email,
+                                              refreshPress == true ? "${user?.email}" : email,
                                               style: fontSemi(18, Colors.black),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
@@ -291,7 +296,12 @@ class _UserDashboardState extends State<UserDashboard> {
                                                   "assets/images/icons/location.png")),
                                           Container(
                                             width: 200,
-                                            child: Text(userLocation != null ? "${userLocation}" : "${userLocation}",
+                                            child: Text(
+                                              userLocation != null
+                                                  ? "$userLocation"
+                                                  : getUserLocation().then((r){
+                                                    return "${r.addressLine}";
+                                                  }),
                                               style: fontSemi(16, Colors.black),
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
@@ -304,7 +314,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                         ? Container(
                                             height: 30,
                                             child: Text(
-                                              "${user?.phoneNumber})}",
+                                              "${user?.phoneNumber}",
                                               style: fontSemi(14, Colors.black),
                                             ),
                                           )

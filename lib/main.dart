@@ -1,13 +1,16 @@
 import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:panicapp/components/login_ui.dart';
 import 'package:panicapp/home.dart';
+import 'package:panicapp/model/auth/auth.dart';
 import 'package:panicapp/profileEdit.dart';
 import 'package:flutter/material.dart';
 import 'package:panicapp/navigatorMenu/laporanActivity.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:panicapp/register.dart';
+import 'package:toast/toast.dart';
 
 void main() => runApp(
       MaterialApp(
@@ -29,20 +32,26 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  final FlareControls _flareControls = FlareControls();
 
   @override
   void initState() {
     super.initState();
-
+    _flareControls.play("loading", mix: 0.5, mixSeconds: 2);
     loadData();
   }
 
   Future<Timer> loadData() async {
-  return new Timer(Duration(seconds: 8), onDoneLoading);
+  return new Timer(Duration(seconds: 6), onDoneLoading);
   }
 
   onDoneLoading() async{
-    Navigator.pushNamedAndRemoveUntil(context, '/main', ModalRoute.withName("/"));
+    AuthServices().getUser().then((user) {
+      if(user != null){
+        Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName("/"));
+        Toast.show("Selamat Datang ${user.displayName}", context, duration: Toast.LENGTH_SHORT);
+      }
+    });
   }
 
   @override
@@ -53,7 +62,7 @@ class _SplashState extends State<Splash> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Center(
-          child: FlareActor("assets/anims/panic_loading.flr", alignment:Alignment.center, fit:BoxFit.contain, animation:"Untitled"),
+          child: FlareActor("assets/anims/panic_loading_screen.flr", alignment:Alignment.center, fit:BoxFit.contain, animation:"loading", controller: _flareControls,),
         ),
       ),
     );

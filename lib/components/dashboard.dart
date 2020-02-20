@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,6 @@ class _UserDashboardState extends State<UserDashboard> {
   String username = "${user?.displayName}";
   String email = "${user?.email}";
   bool refreshPress = false;
-  
 
   @override
   void initState() {
@@ -116,7 +116,9 @@ class _UserDashboardState extends State<UserDashboard> {
                                         EvaIcons.edit2,
                                         color: Colors.orange,
                                       ),
-                                      onPressed: null)),
+                                      onPressed: (){
+                                        Navigator.pushNamed(context, "/updateProfile");
+                                      })),
                               Expanded(
                                   child: IconButton(
                                 icon: Icon(
@@ -133,12 +135,10 @@ class _UserDashboardState extends State<UserDashboard> {
                                     );
                                     setState(() {
                                       userLocation = "${location.addressLine}";
+                                      refreshPress = true;
+                                      username = "${user?.displayName}";
+                                      email = "${user?.email}";
                                     });
-                                  });
-                                  setState(() {
-                                    refreshPress = true;
-                                    username = "${user?.displayName}";
-                                    email = "${user?.email}";
                                   });
                                 },
                               ))
@@ -191,12 +191,12 @@ class _UserDashboardState extends State<UserDashboard> {
                       height: MediaQuery.of(context).size.height / 1.7,
                       width: MediaQuery.of(context).size.width / 1,
                       child: Container(
-                        margin: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(5),
                         decoration: BoxDecoration(
                             boxShadow: [
                               new BoxShadow(
-                                  color: Colors.grey[100],
-                                  offset: new Offset(0, 0),
+                                  color: Colors.black45,
+                                  offset: new Offset(0, 6),
                                   blurRadius: 10)
                             ],
                             borderRadius: BorderRadius.circular(20),
@@ -226,7 +226,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(bottom: 40),
+                                margin: EdgeInsets.only(bottom: 40, top: 20),
                                 height: MediaQuery.of(context).size.height / 3,
                                 width: MediaQuery.of(context).size.width / 1.2,
                                 child: Column(
@@ -249,9 +249,13 @@ class _UserDashboardState extends State<UserDashboard> {
                                                   "assets/images/icons/user.png")),
                                           Container(
                                             width: 200,
-                                            child: Text(
-                                              refreshPress == true ? "${user?.displayName}" : username,
+                                            child: AutoSizeText(
+                                              refreshPress == true
+                                                  ? "${user?.displayName}"
+                                                  : username,
                                               style: fontBold(18, Colors.black),
+                                              maxFontSize: 28,
+                                              minFontSize: 18,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                             ),
@@ -272,10 +276,14 @@ class _UserDashboardState extends State<UserDashboard> {
                                                   "assets/images/icons/email.png")),
                                           Container(
                                             width: 200,
-                                            child: Text(
-                                              refreshPress == true ? "${user?.email}" : email,
+                                            child: AutoSizeText(
+                                              refreshPress == true
+                                                  ? "${user?.email}"
+                                                  : email,
                                               style: fontSemi(18, Colors.black),
                                               overflow: TextOverflow.ellipsis,
+                                              maxFontSize: 28,
+                                              minFontSize: 18,
                                               maxLines: 1,
                                             ),
                                           ),
@@ -296,87 +304,73 @@ class _UserDashboardState extends State<UserDashboard> {
                                                   "assets/images/icons/location.png")),
                                           Container(
                                             width: 200,
-                                            child: Text(
-                                              userLocation != null
-                                                  ? "$userLocation"
-                                                  : getUserLocation().then((r){
-                                                    return "${r.addressLine}";
-                                                  }),
+                                            child: AutoSizeText(
+                                              "${userLocation}",
                                               style: fontSemi(16, Colors.black),
                                               overflow: TextOverflow.ellipsis,
+                                              maxFontSize: 28,
+                                              minFontSize: 18,
                                               maxLines: 1,
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    user?.phoneNumber != null
-                                        ? Container(
-                                            height: 30,
-                                            child: Text(
-                                              "${user?.phoneNumber}",
-                                              style: fontSemi(14, Colors.black),
-                                            ),
-                                          )
-                                        : StreamBuilder(
-                                            stream: Firestore.instance
-                                                .collection('user_phone')
-                                                .document('${user?.uid}')
-                                                .snapshots(),
-                                            builder: (context, snapshot) {
-                                              try {
-                                                if (!snapshot.hasData) {
-                                                  return new Text(
-                                                    "",
-                                                    style: fontSemi(
-                                                        16, Colors.black),
-                                                  );
-                                                } else if (snapshot
-                                                        .connectionState ==
-                                                    ConnectionState.none) {
-                                                  return new Text(
-                                                    "none",
-                                                    style: fontSemi(
-                                                        16, Colors.black),
-                                                  );
-                                                } else if (snapshot.hasData) {
-                                                  var userDocument =
-                                                      snapshot.data;
-                                                  return Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: 20),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: <Widget>[
-                                                        Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    right: 5),
-                                                            width: 30,
-                                                            height: 50,
-                                                            child: Image.asset(
-                                                                "assets/images/icons/telphone.png")),
-                                                        Container(
-                                                          width: 220,
-                                                          height: 30,
-                                                          child: Text(
-                                                            userDocument[
-                                                                "phone_number"],
-                                                            style: fontSemi(16,
-                                                                Colors.black),
-                                                          ),
-                                                        ),
-                                                      ],
+                                    StreamBuilder(
+                                      stream: Firestore.instance
+                                          .collection('user_phone')
+                                          .document('${user?.uid}')
+                                          .snapshots(),
+                                      builder: (context, snapshot) {
+                                        try {
+                                          if (!snapshot.hasData) {
+                                            return new Text(
+                                              "",
+                                              style: fontSemi(16, Colors.black),
+                                            );
+                                          } else if (snapshot?.connectionState ==
+                                              ConnectionState.none) {
+                                            return new Text(
+                                              "none",
+                                              style: fontSemi(16, Colors.black),
+                                            );
+                                          } else if (snapshot.hasData) {
+                                            var userDocument = snapshot?.data;
+                                            return Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Container(
+                                                      margin: EdgeInsets.only(
+                                                          right: 5),
+                                                      width: 30,
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          "assets/images/icons/telphone.png")),
+                                                  Container(
+                                                    width: 220,
+                                                    height: 30,
+                                                    child: AutoSizeText(
+                                                      userDocument[
+                                                          "phone_number"],
+                                                      style: fontSemi(
+                                                          16, Colors.black),
+                                                      maxFontSize: 28,
+                                                      minFontSize: 18,
                                                     ),
-                                                  );
-                                                }
-                                              } catch (e) {
-                                                return Text("");
-                                              }
-                                            },
-                                          ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                        } catch (e) {
+                                          return Text("");
+                                        }
+                                      },
+                                    ),
                                   ],
                                 ),
                               ),

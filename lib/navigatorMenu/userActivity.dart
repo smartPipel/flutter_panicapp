@@ -53,12 +53,7 @@ class _UserState extends State<User> {
             ),
           ),
           body: SafeArea(
-            child: Column(
-              children: <Widget>[
-                
-                UserDashboard(),
-              ],
-            ),
+            child: UserDashboard(),
           ),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),

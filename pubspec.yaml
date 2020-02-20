@@ -38,12 +38,14 @@ dependencies:
   geocoder: ^0.2.1
   sliding_up_panel: ^1.0.0
   firebase_storage: ^3.1.1
-  extended_image: ^0.7.1
   image_picker: 
   image_cropper: any
   flutter_image_compress: ^0.6.5+1
   flare_flutter: ^2.0.1
   auto_size_text: ^2.1.0
+  snack: ^1.0.3
+  flutter_color_plugin: ^0.0.2
+
 
 dev_dependencies:
   flutter_test:

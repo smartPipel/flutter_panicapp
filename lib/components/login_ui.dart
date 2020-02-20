@@ -25,12 +25,7 @@ class _LoginUserState extends State<LoginUser> {
   @override
   void initState() {
     super.initState();
-    AuthServices().getUser().then((user) {
-      if(user != null){
-        Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName("/"));
-        Toast.show("Selamat Datang ${user.displayName}", context, duration: Toast.LENGTH_SHORT);
-      }
-    });
+    
   }
 
   @override

@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controller.dart';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:panicapp/model/auth/auth.dart';
 import 'package:panicapp/collection/collections.dart';
@@ -20,10 +24,19 @@ class LaporanAct extends StatefulWidget {
 class _LaporanActState extends State<LaporanAct> {
   final Firestore _firestore = Firestore.instance;
   double _width = 50;
+  bool _loading = true;
+  
+
+  
   @override
   void initState() {
     super.initState();
+    setState(() {
+      
+    });
   }
+ 
+
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +117,10 @@ class _LaporanActState extends State<LaporanAct> {
                     StreamBuilder<QuerySnapshot>(
                       stream: _firestore.collection('laporan').orderBy("waktu", descending: true).snapshots(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData) {
-                          return Center(
-                            child: CircularProgressIndicator(  
-                                backgroundColor: Colors.orangeAccent),
-                          );
-                        } else if (snapshot.connectionState == ConnectionState.none) {
-                          return Text("None");
+                        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+                          return LoadingFlare(context);
+                        } else if (snapshot.connectionState == ConnectionState.done) {
+                          return LoadingFlare(context);
                         } else if (!snapshot.hasData) {
                           Center(child: Text("No Data Found", style: fontBold(40, Colors.orangeAccent),));
                         }
@@ -139,5 +149,13 @@ class _LaporanActState extends State<LaporanAct> {
       ),
     );
   }
-
+  Widget LoadingFlare(BuildContext context) {
+    return Center(
+      heightFactor: 50,
+      widthFactor: 50,
+      child: FlareActor("assets/anims/panic_loading_screen.flr",animation: "loading", shouldClip: true, ),
+    );
+  }
 }
+
+

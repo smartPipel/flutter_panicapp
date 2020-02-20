@@ -106,20 +106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  extended_image:
-    dependency: "direct main"
-    description:
-      name: extended_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.1"
-  extended_image_library:
-    dependency: transitive
-    description:
-      name: extended_image_library
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   firebase:
     dependency: transitive
     description:
@@ -195,6 +181,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_color_plugin:
+    dependency: "direct main"
+    description:
+      name: flutter_color_plugin
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   flutter_image_compress:
     dependency: "direct main"
     description:
@@ -275,13 +268,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.0+4"
-  http_client_helper:
-    dependency: transitive
-    description:
-      name: http_client_helper
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
   http_parser:
     dependency: transitive
     description:
@@ -399,6 +385,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  snack:
+    dependency: "direct main"
+    description:
+      name: snack
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   source_span:
     dependency: transitive
     description:
@@ -498,5 +491,5 @@ packages:
     source: hosted
     version: "2.2.0"
 sdks:
-  dart: ">=2.7.0-dev <3.0.0"
+  dart: ">=2.7.0 <3.0.0"
   flutter: ">=1.12.13+hotfix.4 <2.0.0"

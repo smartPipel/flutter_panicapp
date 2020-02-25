@@ -37,12 +37,12 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    _flareControls.play("loading", mix: 0.5, mixSeconds: 2);
+    _flareControls.play("loading", mix: 0.5, mixSeconds: 1);
     loadData();
   }
 
   Future<Timer> loadData() async {
-  return new Timer(Duration(seconds: 6), onDoneLoading);
+  return new Timer(Duration(seconds: 4), onDoneLoading);
   }
 
   onDoneLoading() async{
@@ -51,6 +51,7 @@ class _SplashState extends State<Splash> {
         Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName("/"));
         Toast.show("Selamat Datang ${user.displayName}", context, duration: Toast.LENGTH_SHORT);
       }
+      
     });
   }
 

@@ -25,18 +25,15 @@ class _LaporanActState extends State<LaporanAct> {
   final Firestore _firestore = Firestore.instance;
   double _width = 50;
   bool _loading = true;
-  
+  bool orderByNameAsc = false;
+  bool orderByNameDesc = false;
+  bool orderByJenis = false;
 
-  
   @override
   void initState() {
     super.initState();
-    setState(() {
-      
-    });
+    setState(() {});
   }
- 
-
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class _LaporanActState extends State<LaporanAct> {
         child: Column(
           children: <Widget>[
             Container(
-              child:Container(
+              child: Container(
                 margin: EdgeInsets.only(left: 15),
                 alignment: Alignment.centerLeft,
                 child: AnimatedContainer(
@@ -62,15 +59,54 @@ class _LaporanActState extends State<LaporanAct> {
                           bottomRight: Radius.circular(25))),
                   child: Row(
                     children: <Widget>[
-                     //write code here
+                      //write code here
                       Expanded(
                         child: IconButton(
-                            icon: Icon(FontAwesomeIcons.sortAlphaUp,
-                              color: Colors.orange,
-                            ),
-                            onPressed: null)),
+                          icon: Icon(
+                            FontAwesomeIcons.sortAlphaDownAlt,
+                            color: Colors.orange,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              orderByNameDesc = true;
+                              orderByNameAsc = false;
+                              orderByJenis = false;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.sortAlphaUpAlt,
+                            color: Colors.orange,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              orderByNameDesc = false;
+                              orderByNameAsc = true;
+                              orderByJenis = false;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.featured_play_list,
+                            color: Colors.orange,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              orderByNameDesc = false;
+                              orderByNameAsc = false;
+                              orderByJenis = true;
+                            });
+                          },
+                        ),
+                      ),
 
-                     //end
+                      //end
                       Container(
                         height: 50,
                         decoration: BoxDecoration(
@@ -94,10 +130,16 @@ class _LaporanActState extends State<LaporanAct> {
                               if (_width == 50) {
                                 setState(() {
                                   _width = 200;
+                                  orderByNameDesc = false;
+                                  orderByNameAsc = false;
+                                  orderByJenis = false;
                                 });
                               } else if (_width == 200) {
                                 setState(() {
                                   _width = 50;
+                                  orderByNameDesc = false;
+                                  orderByNameAsc = false;
+                                  orderByJenis = false;
                                 });
                               }
                             }),
@@ -108,21 +150,47 @@ class _LaporanActState extends State<LaporanAct> {
               ),
             ),
             Expanded(
-                          child: Container(
+              child: Container(
                 height: MediaQuery.of(context).size.height,
-                margin: EdgeInsets.only(top:20, bottom: 20),
+                margin: EdgeInsets.only(top: 20, bottom: 20),
                 padding: EdgeInsets.only(bottom: 20),
                 child: Stack(
                   children: <Widget>[
                     StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('laporan').orderBy("waktu", descending: true).snapshots(),
+                      stream: orderByNameDesc == true
+                          ? _firestore
+                              .collection('laporan')
+                              .orderBy("nama_pelapor", descending: true)
+                              .snapshots()
+                          : orderByNameAsc == true
+                              ? _firestore
+                                  .collection('laporan')
+                                  .orderBy("nama_pelapor", descending: false)
+                                  .snapshots()
+                              : orderByJenis == true
+                                  ? _firestore
+                                      .collection('laporan')
+                                      .orderBy("jenis_laporan",
+                                          descending: true)
+                                      .snapshots()
+                                  : _firestore
+                                      .collection('laporan')
+                                      .orderBy("waktu", descending: true)
+                                      .snapshots(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
+                        if (snapshot.connectionState ==
+                                ConnectionState.waiting ||
+                            snapshot.connectionState == ConnectionState.none) {
                           return LoadingFlare(context);
-                        } else if (snapshot.connectionState == ConnectionState.done) {
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.done) {
                           return LoadingFlare(context);
                         } else if (!snapshot.hasData) {
-                          Center(child: Text("No Data Found", style: fontBold(40, Colors.orangeAccent),));
+                          Center(
+                              child: Text(
+                            "No Data Found",
+                            style: fontBold(40, Colors.orangeAccent),
+                          ));
                         }
                         return Container(
                           child: ListView.builder(
@@ -139,7 +207,6 @@ class _LaporanActState extends State<LaporanAct> {
                         );
                       },
                     ),
-                    
                   ],
                 ),
               ),
@@ -149,13 +216,16 @@ class _LaporanActState extends State<LaporanAct> {
       ),
     );
   }
+
   Widget LoadingFlare(BuildContext context) {
     return Center(
       heightFactor: 50,
       widthFactor: 50,
-      child: FlareActor("assets/anims/panic_loading_screen.flr",animation: "loading", shouldClip: true, ),
+      child: FlareActor(
+        "assets/anims/panic_loading_screen.flr",
+        animation: "loading",
+        shouldClip: true,
+      ),
     );
   }
 }
-
-

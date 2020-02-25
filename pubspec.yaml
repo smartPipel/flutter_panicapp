@@ -43,7 +43,6 @@ dependencies:
   flutter_image_compress: ^0.6.5+1
   flare_flutter: ^2.0.1
   auto_size_text: ^2.1.0
-  snack: ^1.0.3
   flutter_color_plugin: ^0.0.2
 
 

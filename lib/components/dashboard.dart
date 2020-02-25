@@ -159,11 +159,11 @@ class _UserDashboardState extends State<UserDashboard> {
                             icon: _width == 50
                                 ? Icon(
                                     EvaIcons.arrowIosForwardOutline,
-                                    color: Colors.black,
+                                    color: Colors.white
                                   )
                                 : Icon(
                                     EvaIcons.arrowIosBackOutline,
-                                    color: Colors.black,
+                                    color: Colors.white,
                                   ),
                             onPressed: () {
                               if (_width == 50) {
@@ -181,9 +181,7 @@ class _UserDashboardState extends State<UserDashboard> {
                   ),
                 ),
               ),
-              Container(
-                color: Colors.transparent,
-                width: MediaQuery.of(context).size.width / 1,
+              Center(
                 child: Stack(
                   children: <Widget>[
                     Container(

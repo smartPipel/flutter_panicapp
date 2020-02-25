@@ -50,6 +50,8 @@ class _SplashState extends State<Splash> {
       if(user != null){
         Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName("/"));
         Toast.show("Selamat Datang ${user.displayName}", context, duration: Toast.LENGTH_SHORT);
+      }else if (user == null) {
+        Navigator.pushNamedAndRemoveUntil(context, "/main", ModalRoute.withName("/"));
       }
       
     });

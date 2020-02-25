@@ -64,7 +64,7 @@ class _LaporanActState extends State<LaporanAct> {
                         child: IconButton(
                           icon: Icon(
                             FontAwesomeIcons.sortAlphaDownAlt,
-                            color: Colors.orange,
+                            color: Colors.greenAccent,
                           ),
                           onPressed: () {
                             setState(() {
@@ -79,7 +79,7 @@ class _LaporanActState extends State<LaporanAct> {
                         child: IconButton(
                           icon: Icon(
                             FontAwesomeIcons.sortAlphaUpAlt,
-                            color: Colors.orange,
+                            color: Colors.orangeAccent,
                           ),
                           onPressed: () {
                             setState(() {
@@ -94,7 +94,7 @@ class _LaporanActState extends State<LaporanAct> {
                         child: IconButton(
                           icon: Icon(
                             Icons.featured_play_list,
-                            color: Colors.orange,
+                            color: Colors.blue,
                           ),
                           onPressed: () {
                             setState(() {

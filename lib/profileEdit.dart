@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -45,99 +46,133 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
-    AuthServices().getUser().then((u){
+    AuthServices().getUser().then((usr) {
       setState(() {
-        user = u;
+        user = usr;
       });
       Toast.show("${user?.displayName}", context, duration: Toast.LENGTH_LONG);
-          
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
-        child:
-          Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: MediaQuery.of(context).size.height / 1.3,
-                  width: MediaQuery.of(context).size.width,
-                  child: Container(
-                    padding: EdgeInsets.only(top: 100),
-                    child: Column(
-                      children: <Widget>[
-                        _image != null
-                            ? Container(
-                                height: 100,
-                                width: 100,
-                                child: CircleAvatar(
-                                  backgroundImage: FileImage(_image),
-                                ),
-                              )
-                            : Container(
-                                width: 100,
-                                height: 100,
-                                child: CircleAvatar(
-                                  backgroundImage: user?.photoUrl == null
-                                      ? AssetImage("assets/images/userPhoto.png")
-                                      : NetworkImage("${user?.photoUrl}"),
-                                ),
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height / 1.3,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                  padding: EdgeInsets.only(top: 100),
+                  child: Column(
+                    children: <Widget>[
+                      _image != null
+                          ? Container(
+                              height: 100,
+                              width: 100,
+                              child: CircleAvatar(
+                                backgroundImage: FileImage(_image),
                               ),
-                        Container(
-                          width: MediaQuery.of(context).size.width/1.2,
-                          margin: EdgeInsets.only(top:30),
-                          child: TextFormField(
-                           controller: _displayName,
-                            autovalidate: true,
-                            onSaved: (val){
-                              _displayText = val;
-                            },
-                            validator: (String val){
-                              if(val.isEmpty || val.length <= 5){
-                                return "* Username tidak boleh kosong atau kurang dari 5";
-                              }
-                              return null;
-                            },
-                            
-                            style: fontBold(16, Colors.black),
-                            decoration: InputDecoration(
+                            )
+                          : Container(
+                              width: 100,
+                              height: 100,
+                              child: CircleAvatar(
+                                backgroundImage: user?.photoUrl == null
+                                    ? AssetImage("assets/images/userPhoto.png")
+                                    : NetworkImage("${user?.photoUrl}"),
+                              ),
+                            ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        margin: EdgeInsets.only(top: 30),
+                        child: TextFormField(
+                          controller: _displayName,
+                          autovalidate: true,
+                          onSaved: (val) {
+                            _displayText = val;
+                          },
+                          validator: (String val) {
+                            if (val.isEmpty || val.length <= 5) {
+                              return "* Username tidak boleh kosong atau kurang dari 5";
+                            }
+                            return null;
+                          },
+                          style: fontBold(16, Colors.black),
+                          decoration: InputDecoration(
                               prefixIcon: Icon(Icons.verified_user),
                               hintText: "${user?.displayName}",
-                              hintStyle: fontSemi(16, Colors.grey)
-                            ),
-                          ),
+                              hintStyle: fontSemi(16, Colors.grey)),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width/1.2,
-                          margin: EdgeInsets.only(top:50),
-                          child: RaisedButton(
-                            child: Text("Selesai Edit"),
-                            onPressed: () {
-                              try{
-                                final storageRef = FirebaseStorage.instance.ref().child("user_photo/" + user?.uid).putFile(_image);
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        margin: EdgeInsets.only(top: 50),
+                        child: RaisedButton(
+                          child: Text("Selesai Edit"),
+                          onPressed: () async {
+                            if (_displayName.text.length >= 5) {
+                              try {
+                                CollectionReference _firestore = Firestore.instance.collection("laporan");
+                                StorageReference storageRef = FirebaseStorage
+                                    .instance
+                                    .ref()
+                                    .child("user_photo/" + user?.uid);
+                                StorageUploadTask task =
+                                    storageRef.putFile(_image);
+                                var downUrl = await (await task.onComplete)
+                                    .ref
+                                    .getDownloadURL();
+                                var url = downUrl.toString();
+                                // QuerySnapshot update = await _firestore.where("uid", isEqualTo: "${user?.uid}").getDocuments();
                                 
-                                
-                                
+                                // final DocumentReference doc = _firestore.document(update.documents[0].documentID);
+
                                 UserUpdateInfo updateInfo = UserUpdateInfo();
-                                updateInfo.displayName = _displayName.text.trim();
-                                user.updateProfile(updateInfo);
-                                user.reload();
-                              }catch(e){
+                                if (_image.length() != 0) {
+
+                                  //  Firestore.instance.runTransaction((transaction) async {
+                                  //    await transaction.update(doc, {
+                                  //      "user_photo": url,
+                                  //      "nama_pelapor": _displayName.text.trim()
+                                  //    });
+                                  //  });
+                                  
+                                  updateInfo.photoUrl = url;
+                                  updateInfo.displayName =
+                                      _displayName.text.trim();
+                                  user.updateProfile(updateInfo);
+                                  user.reload();
+
+                                } else {
+                                  // Firestore.instance.runTransaction((transaction) async {
+                                  //    await transaction.update(doc, {
+                                  //      "nama_pelapor": _displayName.text.trim()
+                                  //    });
+                                  //  });
+
+                                  updateInfo.displayName =
+                                      _displayName.text.trim();
+                                  user.updateProfile(updateInfo);
+                                  user.reload();
+                                }
+                              } catch (e) {
                                 print(e);
                               }
-                            }),
-                        )
-                      ],
-                    ),
+                            }
+                          },
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                  Align(
-                  
-                  alignment:Alignment.bottomRight,
-                  child:Container(
+              ),
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
                     margin: EdgeInsets.all(25),
                     child: FloatingActionButton(
                       elevation: 10,
@@ -146,12 +181,10 @@ class _EditProfileState extends State<EditProfile> {
                         _showMyBottomSheet();
                       },
                     ),
-                  )
-                ) 
-              ],
-            ),
+                  ))
+            ],
           ),
-        
+        ),
       ),
     ));
   }

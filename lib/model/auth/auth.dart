@@ -9,8 +9,6 @@ class AuthServices with ChangeNotifier {
   final GoogleSignIn gSignin = GoogleSignIn();
   FirebaseUser user;
   String photoUri;
-  
-  
 
   Future logout(BuildContext context) async {
     Navigator.of(context).pushReplacementNamed('/main');
@@ -22,52 +20,75 @@ class AuthServices with ChangeNotifier {
     return await fAuth.currentUser();
   }
 
+  void addUserData(String username, String email, String phone_number,
+      String photo_url) async {
+    Firestore.instance
+        .collection("user_data")
+        .document("${user?.uid}")
+        .setData(phone_number == null
+            ? {
+                "username": username,
+                "email": email,
+                "photo_url": photo_url,
+                "phone_number": "+62 ...."
+              }
+            : {
+                "username": username,
+                "email": email,
+                "photo_url": photo_url,
+                "phone_number": phone_number
+              })
+        .whenComplete(() => print("Berhasil"))
+        .catchError((e) => print(e));
+  }
+
   void emailSignIn(String email, String password, BuildContext context) async {
     try {
       user = (await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: email, password: password))
           .user;
     } catch (e) {
-      Toast.show("Ada Kesalahan ${e.toString()}", context, duration: Toast.LENGTH_LONG);
+      Toast.show("Ada Kesalahan ${e.toString()}", context,
+          duration: Toast.LENGTH_LONG);
     } finally {
-      if(user != null){
-        Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName("/"));
-        Toast.show("Selamat Datang ${user.displayName}", context, duration: Toast.LENGTH_SHORT);
-      }else{
+      if (user != null) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, "/home", ModalRoute.withName("/"));
+        Toast.show("Selamat Datang ${user.displayName}", context,
+            duration: Toast.LENGTH_SHORT);
+      } else {
         Toast.show("Gagal Login", context, duration: Toast.LENGTH_SHORT);
       }
     }
   }
 
-  Future<FirebaseUser> emailSignUp(String email, String password, String username,
-    String telephone, BuildContext context) async {
+  Future<FirebaseUser> emailSignUp(String email, String password,
+      String username, String telephone, BuildContext context) async {
     FirebaseUser user;
     try {
       user = (await fAuth.createUserWithEmailAndPassword(
               email: email, password: password))
           .user;
-      
+
       Firestore.instance
           .collection("user_phone")
           .document("${user?.uid}")
           .setData({"phone_number": telephone});
-     
-      
+
+      addUserData(username, email, telephone, null);
+
       UserUpdateInfo userUpdateInfo = UserUpdateInfo();
-      
+
       userUpdateInfo.displayName = username;
       user.updateProfile(userUpdateInfo);
-      
-      
     } catch (e) {
       print("Maaf Ada Kesalahan ${e.toString()}");
     } finally {
-      
       user != null
           ? Navigator.pushNamedAndRemoveUntil(
               context, "/home", ModalRoute.withName("/"))
           : Toast.show("Gagal Register", context, duration: Toast.LENGTH_SHORT);
-     }
+    }
   }
 
   Future googleSignIn(context) async {
@@ -88,6 +109,8 @@ class AuthServices with ChangeNotifier {
 
     final FirebaseUser currentUser = await fAuth.currentUser();
     assert(user.uid == currentUser.uid);
+
+    addUserData(user.displayName, user.email, null, user.photoUrl);
 
     Navigator.pushNamedAndRemoveUntil(
         context, "/home", ModalRoute.withName("/"));

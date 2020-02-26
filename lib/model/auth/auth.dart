@@ -11,7 +11,7 @@ class AuthServices with ChangeNotifier {
   String photoUri;
 
   Future logout(BuildContext context) async {
-    Navigator.of(context).pushReplacementNamed('/main');
+    Navigator.pushNamedAndRemoveUntil(context,'/main', ModalRoute.withName('/'));
     await fAuth.signOut();
     await gSignin.signOut();
   }

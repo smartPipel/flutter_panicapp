@@ -15,7 +15,7 @@ import 'package:panicapp/components/alertLaporan.dart';
   ) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: numberColor,
         boxShadow: [
           new BoxShadow(
               color: Colors.black12, offset: new Offset(0, 3), blurRadius: 6)
@@ -24,7 +24,7 @@ import 'package:panicapp/components/alertLaporan.dart';
       ),
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.only(top: 20),
-      width: 120,
+      width: MediaQuery.of(context).size.width /1.3,
       height: 120,
       child: Column(
         children: <Widget>[
@@ -35,9 +35,9 @@ import 'package:panicapp/components/alertLaporan.dart';
                 children: <Widget>[
                   Text(
                     historiData,
-                    style: fontBold(50, numberColor),
+                    style: fontBold(50, DefaultColors.dark),
                   ),
-                  Text(caption, style: fontBold(18, Colors.grey)),
+                  Text(caption, style: fontBold(18, DefaultColors.darken)),
                 ],
               ),
             ],

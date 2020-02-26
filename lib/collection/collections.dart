@@ -14,14 +14,18 @@ fontSemi(double size, Color color) {
 }
 
 class DefaultColors {
-  Color orange = ColorUtil.color("#FF983E");
-  Color blue = ColorUtil.color("#778CFD");
-  Color green = ColorUtil.color("#7AFF76");
-  Color orangeLight = ColorUtil.color("#FAD379");
-  Color blueLight = ColorUtil.color("#B9C5FF");
-  Color greenLight = ColorUtil.color("#FAD379");
+  static Color orange = ColorUtil.color("#fbe555");
+  static Color blue = ColorUtil.color("#3e64ff");
+  static Color green = ColorUtil.color("#4dd599");
+  static Color orangeLight = ColorUtil.color("#fffe9a");
+  static Color blueLight = ColorUtil.color("#c3f1ff");
+  static Color greenLight = ColorUtil.color("#6decb9");
+  static Color darken = ColorUtil.color("#323C58");
+  static Color dark = ColorUtil.color("#404b69");
+  static Color lighten = ColorUtil.color("#f9fbfc");
+  static Color light = ColorUtil.color("#f5feff");
 }
 
 class AppDefault {
-  final margin = 10;
+  static double margin = 10;
 }

@@ -10,8 +10,8 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
     height: MediaQuery.of(context).size.height / 3.2,
     margin: EdgeInsets.only(top: 10, left: 15, right: 15),
     decoration: BoxDecoration(
-      color: ds.data['jenis_laporan'] == "Kebakaran" ? Colors.orangeAccent[100] 
-                  : ds.data['jenis_laporan'] == "Kriminalitas" ? Colors.blueAccent[100] : Colors.greenAccent[100],
+      color: ds.data['jenis_laporan'] == "Kebakaran" ? DefaultColors.orangeLight 
+                  : ds.data['jenis_laporan'] == "Kriminalitas" ? DefaultColors.blueLight  : DefaultColors.greenLight ,
       borderRadius: BorderRadius.circular(20),
     ),
     child: Column(
@@ -23,12 +23,12 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
               alignment: Alignment.center,
               child: Text(
                 ds.data['jenis_laporan'],
-                style: fontBold(20, Colors.white),
+                style: fontBold(20, DefaultColors.darken),
               )),
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: ds.data['jenis_laporan'] == "Kebakaran" ? Colors.orangeAccent 
-                  : ds.data['jenis_laporan'] == "Kriminalitas" ? Colors.blueAccent : Colors.greenAccent,
+            color: ds.data['jenis_laporan'] == "Kebakaran" ? DefaultColors.orange
+                  : ds.data['jenis_laporan'] == "Kriminalitas" ? DefaultColors.blue : DefaultColors.green,
             borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
             boxShadow: [
               new BoxShadow(
@@ -55,7 +55,7 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Text(
                         ds.data['nama_pelapor'],
-                        style: fontBold(18, Colors.white),
+                        style: fontBold(18, DefaultColors.darken),
                         overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                       )),
@@ -74,7 +74,7 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                           width: 150,
                           child: Text(
                             ds.data['lokasi'],
-                            style: fontSemi(14, Colors.white),
+                            style: fontSemi(14, DefaultColors.darken),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),

@@ -1,3 +1,4 @@
+import 'package:panicapp/collection/collections.dart';
 import 'package:panicapp/model/auth/auth.dart';
 import 'package:panicapp/components/menu.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class _DonasiState extends State<Donasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DefaultColors.darken,
       body: SafeArea(child: Container(child: Center(
         child: Image.asset("assets/images/coming_soon.png"),
       ),)),

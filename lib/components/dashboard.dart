@@ -62,7 +62,7 @@ class _UserDashboardState extends State<UserDashboard> {
                   height: 50,
                   width: _width,
                   decoration: BoxDecoration(
-                      color: Colors.orangeAccent[100],
+                      color: DefaultColors.dark,
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(25),
                           bottomRight: Radius.circular(25))),
@@ -70,7 +70,7 @@ class _UserDashboardState extends State<UserDashboard> {
                     children: <Widget>[
                       Expanded(
                         child: Container(
-                          color: Colors.orangeAccent[100],
+                          color:Colors.transparent,
                           width: 100,
                           child: Row(
                             children: <Widget>[
@@ -159,11 +159,11 @@ class _UserDashboardState extends State<UserDashboard> {
                             icon: _width == 50
                                 ? Icon(
                                     EvaIcons.arrowIosForwardOutline,
-                                    color: Colors.white
+                                    color: DefaultColors.darken
                                   )
                                 : Icon(
                                     EvaIcons.arrowIosBackOutline,
-                                    color: Colors.white,
+                                    color: DefaultColors.darken,
                                   ),
                             onPressed: () {
                               if (_width == 50) {
@@ -186,10 +186,10 @@ class _UserDashboardState extends State<UserDashboard> {
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.all(10),
-                      height: MediaQuery.of(context).size.height / 1.7,
+                      height: MediaQuery.of(context).size.height / 1.6,
                       width: MediaQuery.of(context).size.width / 1,
                       child: Container(
-                        margin: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(top:20, left: 10, right: 10),
                         decoration: BoxDecoration(
                             boxShadow: [
                               new BoxShadow(
@@ -232,6 +232,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                       CrossAxisAlignment.stretch,
                                   children: <Widget>[
                                     Container(
+                                      
                                       height: 30,
                                       width: MediaQuery.of(context).size.width /
                                           1.2,
@@ -247,6 +248,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                                   "assets/images/icons/user.png")),
                                           Container(
                                             width: 200,
+                                           
                                             child: AutoSizeText(
                                               refreshPress == true
                                                   ? "${user?.displayName}"
@@ -262,6 +264,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                       ),
                                     ),
                                     Container(
+                                       margin: EdgeInsets.only(top: 10),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -289,6 +292,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                       ),
                                     ),
                                     Container(
+                                       margin: EdgeInsets.only(top: 10),
                                       height: 30,
                                       child: Row(
                                         mainAxisAlignment:
@@ -335,6 +339,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                           } else if (snapshot.hasData) {
                                             var userDocument = snapshot?.data;
                                             return Container(
+                                               margin: EdgeInsets.only(top: 10),
                                               padding:
                                                   EdgeInsets.only(left: 20),
                                               child: Row(

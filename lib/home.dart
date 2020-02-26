@@ -1,3 +1,4 @@
+import 'package:panicapp/collection/collections.dart';
 import 'package:panicapp/navigatorMenu/donasiActivity.dart';
 import 'package:panicapp/navigatorMenu/laporanActivity.dart';
 import 'package:panicapp/navigatorMenu/userActivity.dart';
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DefaultColors.darken,
       body: _layoutPage.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavyBar( 
         showElevation: false, 
@@ -39,25 +41,25 @@ class _HomeScreenState extends State<HomeScreen> {
         onItemSelected: (index) => setState(() {
          _onTapItem(index);
         }),
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.dark,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: Icon(EvaIcons.homeOutline),
             title: Text("Home"),
-            activeColor: Colors.orangeAccent,
-            inactiveColor: Colors.blue,
+            activeColor: DefaultColors.orange,
+            inactiveColor: DefaultColors.blue,
           ),
           BottomNavyBarItem(
             icon: Icon(EvaIcons.clipboardOutline),
             title: Text("Laporan"),
-            activeColor: Colors.orangeAccent,
-            inactiveColor: Colors.blue,
+            activeColor: DefaultColors.orange,
+            inactiveColor: DefaultColors.blue,
           ),
           BottomNavyBarItem(
             icon: Icon(EvaIcons.giftOutline),
             title: Text("Donasi"),
-            activeColor: Colors.orangeAccent,
-            inactiveColor: Colors.blue,
+            activeColor: DefaultColors.orange,
+            inactiveColor: DefaultColors.blue,
           ),
         ],
       ),

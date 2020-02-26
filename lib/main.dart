@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
+import 'package:panicapp/collection/collections.dart';
 import 'package:panicapp/components/login_ui.dart';
 import 'package:panicapp/home.dart';
 import 'package:panicapp/model/auth/auth.dart';
@@ -81,6 +82,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DefaultColors.darken,
       body: Container(
         child: SafeArea(
           child: ListView(

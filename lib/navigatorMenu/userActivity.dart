@@ -27,24 +27,31 @@ class _UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DefaultColors.darken,
       body: SlidingUpPanel(
           panel: Center(
             child: LaporanWidget(),
           ),
-          margin: EdgeInsets.only(left: 15, right: 15),
-          backdropColor: Colors.orangeAccent[100],
+          margin: EdgeInsets.only(left: 0, right: 0),
+          minHeight: MediaQuery.of(context).size.height /10,
+          maxHeight: MediaQuery.of(context).size.height /1.3,
+          backdropColor: DefaultColors.lighten,
           parallaxEnabled: true,
           parallaxOffset: -0.7,
           panelSnapping: true,
           renderPanelSheet: true,
-          backdropOpacity: 0.6,
+          backdropOpacity: 0.2,
           backdropEnabled: true,
           collapsed: Container(
+            
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
-                color: Colors.orangeAccent[100]),
+                gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight, colors: [
+                  DefaultColors.blueLight,
+                  DefaultColors.orange,
+                ])),
             child: Center(
               child: Text(
                 "Laporan",

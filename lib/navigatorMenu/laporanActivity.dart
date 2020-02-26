@@ -38,11 +38,14 @@ class _LaporanActState extends State<LaporanAct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DefaultColors.darken,
       body: SafeArea(
+
         child: Column(
           children: <Widget>[
             Container(
               child: Container(
+                
                 margin: EdgeInsets.only(left: 15),
                 alignment: Alignment.centerLeft,
                 child: AnimatedContainer(
@@ -53,7 +56,7 @@ class _LaporanActState extends State<LaporanAct> {
                   height: 50,
                   width: _width,
                   decoration: BoxDecoration(
-                      color: Colors.orangeAccent[100],
+                      color: DefaultColors.dark,
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(25),
                           bottomRight: Radius.circular(25))),
@@ -64,7 +67,7 @@ class _LaporanActState extends State<LaporanAct> {
                         child: IconButton(
                           icon: Icon(
                             FontAwesomeIcons.sortAlphaDownAlt,
-                            color: Colors.greenAccent,
+                            color: DefaultColors.green,
                           ),
                           onPressed: () {
                             setState(() {
@@ -79,7 +82,7 @@ class _LaporanActState extends State<LaporanAct> {
                         child: IconButton(
                           icon: Icon(
                             FontAwesomeIcons.sortAlphaUpAlt,
-                            color: Colors.orangeAccent,
+                            color: DefaultColors.orange,
                           ),
                           onPressed: () {
                             setState(() {
@@ -94,7 +97,7 @@ class _LaporanActState extends State<LaporanAct> {
                         child: IconButton(
                           icon: Icon(
                             Icons.featured_play_list,
-                            color: Colors.blue,
+                            color: DefaultColors.blue,
                           ),
                           onPressed: () {
                             setState(() {
@@ -120,11 +123,11 @@ class _LaporanActState extends State<LaporanAct> {
                             icon: _width == 50
                                 ? Icon(
                                     Icons.sort,
-                                    color: Colors.white,
+                                    color: DefaultColors.darken,
                                   )
                                 : Icon(
                                     EvaIcons.arrowIosBackOutline,
-                                    color: Colors.white,
+                                    color: DefaultColors.darken,
                                   ),
                             onPressed: () {
                               if (_width == 50) {
@@ -152,7 +155,7 @@ class _LaporanActState extends State<LaporanAct> {
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height,
-                margin: EdgeInsets.only(top: 20, bottom: 20),
+                margin: EdgeInsets.only(top: 20, bottom: 0),
                 padding: EdgeInsets.only(bottom: 20),
                 child: Stack(
                   children: <Widget>[

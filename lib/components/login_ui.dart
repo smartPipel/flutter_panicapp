@@ -127,7 +127,7 @@ class _LoginUserState extends State<LoginUser> {
       alignment: Alignment.center,
       child: Text(
         "Belum punya akun?",
-        style: fontSemi(15, Colors.black)
+        style: fontSemi(15, DefaultColors.light)
       ),
     );
   }
@@ -139,7 +139,7 @@ class _LoginUserState extends State<LoginUser> {
       },
       child: Text(
         " Daftar disini!",
-        style: fontSemi(15, Colors.blue)
+        style: fontSemi(15, DefaultColors.blue)
       ),
     );
   }
@@ -163,18 +163,22 @@ class _LoginUserState extends State<LoginUser> {
               },
               textInputAction: TextInputAction.next,
               controller: _usernameController,
+              style: fontBold(16, DefaultColors.lighten),
               decoration: InputDecoration(
+                hintStyle: fontSemi(16, Colors.grey),
+                
                 prefixIcon: Icon(
                   Icons.email,
-                  color: Colors.orangeAccent,
+                  color: DefaultColors.lighten,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: DefaultColors.light),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orangeAccent),
+                  borderSide: BorderSide(color: DefaultColors.light),
                 ),
                 hintText: "Email",
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
-                ),
+                
               ),
             ),
           ),
@@ -193,14 +197,19 @@ class _LoginUserState extends State<LoginUser> {
             textInputAction: TextInputAction.next,
             obscureText: true,
             keyboardType: TextInputType.visiblePassword,
+            style: fontBold(16, DefaultColors.lighten),
             controller: _passwordController,
             decoration: InputDecoration(
+              hintStyle: fontSemi(16, Colors.grey),
               prefixIcon: Icon(
                 FontAwesomeIcons.key,
-                color: Colors.orangeAccent,
+                color: DefaultColors.lighten,
               ),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: DefaultColors.light),
+                ),
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.orangeAccent),
+                borderSide: BorderSide(color:DefaultColors.light),
               ),
               hintText: "Password",
               border: UnderlineInputBorder(

@@ -21,10 +21,10 @@ class AuthServices with ChangeNotifier {
   }
 
   void addUserData(String username, String email, String phone_number,
-      String photo_url) async {
+      String photo_url, String documentName) async {
     Firestore.instance
         .collection("user_data")
-        .document("${user?.uid}")
+        .document(documentName)
         .setData(phone_number == null
             ? {
                 "username": username,
@@ -75,7 +75,6 @@ class AuthServices with ChangeNotifier {
           .document("${user?.uid}")
           .setData({"phone_number": telephone});
 
-      addUserData(username, email, telephone, null);
 
       UserUpdateInfo userUpdateInfo = UserUpdateInfo();
 
@@ -88,6 +87,7 @@ class AuthServices with ChangeNotifier {
           ? Navigator.pushNamedAndRemoveUntil(
               context, "/home", ModalRoute.withName("/"))
           : Toast.show("Gagal Register", context, duration: Toast.LENGTH_SHORT);
+      addUserData(username, email, telephone, null, "${user.uid}");
     }
   }
 
@@ -110,7 +110,7 @@ class AuthServices with ChangeNotifier {
     final FirebaseUser currentUser = await fAuth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    addUserData(user.displayName, user.email, null, user.photoUrl);
+    addUserData(user.displayName, user.email, null, user.photoUrl,"${user.uid}");
 
     Navigator.pushNamedAndRemoveUntil(
         context, "/home", ModalRoute.withName("/"));

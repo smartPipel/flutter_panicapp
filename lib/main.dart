@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:panicapp/collection/collections.dart';
@@ -34,10 +35,12 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   final FlareControls _flareControls = FlareControls();
+  FirebaseUser user;
 
   @override
   void initState() {
     super.initState();
+    
     _flareControls.play("loading", mix: 0.5, mixSeconds: 1);
     loadData();
   }

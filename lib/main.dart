@@ -9,8 +9,7 @@ import 'package:panicapp/home.dart';
 import 'package:panicapp/model/auth/auth.dart';
 import 'package:panicapp/profileEdit.dart';
 import 'package:flutter/material.dart';
-import 'package:panicapp/navigatorMenu/laporanActivity.dart';
-import 'package:splashscreen/splashscreen.dart';
+import 'package:panicapp/navigation/laporanActivity.dart';
 import 'package:panicapp/register.dart';
 import 'package:toast/toast.dart';
 

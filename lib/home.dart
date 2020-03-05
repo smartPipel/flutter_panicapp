@@ -1,7 +1,7 @@
 import 'package:panicapp/collection/collections.dart';
-import 'package:panicapp/navigatorMenu/donasiActivity.dart';
-import 'package:panicapp/navigatorMenu/laporanActivity.dart';
-import 'package:panicapp/navigatorMenu/userActivity.dart';
+import 'package:panicapp/navigation/donasiActivity.dart';
+import 'package:panicapp/navigation/laporanActivity.dart';
+import 'package:panicapp/navigation/userActivity.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';

@@ -52,7 +52,7 @@ class _UserDashboardState extends State<UserDashboard> {
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(left: 15),
+                
                 alignment: Alignment.centerLeft,
                 child: AnimatedContainer(
                   curve: Curves.easeInOut,

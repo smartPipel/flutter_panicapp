@@ -22,7 +22,7 @@ class DefaultColors {
   static Color greenLight = ColorUtil.color("#6decb9");
   static Color darken = ColorUtil.color("#323C58");
   static Color dark = ColorUtil.color("#404b69");
-  static Color lighten = ColorUtil.color("#f9fbfc");
+  static Color lighten = ColorUtil.color("#F4F4F4");
   static Color light = ColorUtil.color("#f5feff");
 }
 

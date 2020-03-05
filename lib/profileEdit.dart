@@ -110,8 +110,12 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.2,
+                        decoration:  BoxDecoration(
+                          color: DefaultColors.green,
+                          borderRadius: BorderRadius.circular(25)
+                        ),
                         margin: EdgeInsets.only(top: 50),
-                        child: RaisedButton(
+                        child: FlatButton(
                           child: Text("Selesai Edit"),
                           onPressed: () async {
                             if (_displayName.text.length >= 5) {

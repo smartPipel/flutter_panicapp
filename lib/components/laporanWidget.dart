@@ -46,7 +46,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
     return Stack(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(top: 40, left: 10, right: 10),
+          padding: EdgeInsets.only(top: 40,),
           decoration: BoxDecoration(
             color: DefaultColors.darken,
             
@@ -167,7 +167,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data.documents?.length != 0 ? snapshot.data.documents?.length : "0"}",
+                                  "${snapshot.hasData ? snapshot.data.documents.length : 0}",
                                   "Kebakaran",
                                   DefaultColors.orangeLight),
                             );
@@ -185,7 +185,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data.documents?.length != 0 ? snapshot.data.documents?.length : 0}",
+                                  "${snapshot.data?.documents?.length}",
                                   "Kecelakaan",
                                   DefaultColors.green),
                             );
@@ -204,7 +204,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data.documents?.length != 0 ? snapshot.data.documents?.length : 0}",
+                                  "${snapshot.data?.documents?.length}",
                                   "Kriminalitas",
                                   DefaultColors.blue),
                             );
@@ -221,7 +221,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data.documents?.length != 0 ? snapshot.data.documents?.length : 0}",
+                                  "${snapshot.data?.documents?.length}",
                                   "Jumlah",
                                   DefaultColors.lighten),
                             );

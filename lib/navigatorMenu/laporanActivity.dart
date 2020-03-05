@@ -45,8 +45,6 @@ class _LaporanActState extends State<LaporanAct> {
           children: <Widget>[
             Container(
               child: Container(
-                
-                margin: EdgeInsets.only(left: 15),
                 alignment: Alignment.centerLeft,
                 child: AnimatedContainer(
                   curve: Curves.easeInOut,

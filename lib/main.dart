@@ -40,8 +40,6 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    
-    _flareControls.play("loading", mix: 0.5, mixSeconds: 1);
     loadData();
   }
 
@@ -65,11 +63,13 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return SafeArea(
           child: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+           image: DecorationImage(image: AssetImage("assets/images/bg_splash.png"),fit: BoxFit.cover)
+        ),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Center(
-          child: FlareActor("assets/anims/panic_loading_screen.flr", alignment:Alignment.center, fit:BoxFit.contain, animation:"loading", controller: _flareControls,),
+          child: Image.asset("assets/images/icons/logo.png")
         ),
       ),
     );
@@ -85,21 +85,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DefaultColors.darken,
+      backgroundColor: DefaultColors.light,
       body: Container(
         child: SafeArea(
-          child: ListView(
-            children: <Widget>[
-              Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height / 1,
-                  child: Padding(
-                      padding: EdgeInsets.only(top: 20, left: 30, right: 30),
-                      child: LoginUser()),
-                ),
-              ),
-            ],
+          child: Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 1,
+              child: Padding(
+                  padding: EdgeInsets.only(top: 20, left: 30, right: 30),
+                  child: LoginUser()),
+            ),
           ),
         ),
       ),

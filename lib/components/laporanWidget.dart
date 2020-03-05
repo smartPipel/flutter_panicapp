@@ -167,7 +167,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.hasData ? snapshot.data.documents.length : 0}",
+                                  "${snapshot.data?.documents?.length ?? "0"}",
                                   "Kebakaran",
                                   DefaultColors.orangeLight),
                             );
@@ -185,7 +185,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data?.documents?.length}",
+                                  "${snapshot.data?.documents?.length ?? "0"}",
                                   "Kecelakaan",
                                   DefaultColors.green),
                             );
@@ -204,7 +204,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data?.documents?.length}",
+                                  "${snapshot.data?.documents?.length ?? "0"}",
                                   "Kriminalitas",
                                   DefaultColors.blue),
                             );
@@ -221,7 +221,7 @@ class _LaporanWidgetState extends State<LaporanWidget> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data?.documents?.length}",
+                                  "${snapshot.data?.documents?.length ?? "0"}",
                                   "Jumlah",
                                   DefaultColors.lighten),
                             );

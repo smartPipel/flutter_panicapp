@@ -105,13 +105,13 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavyBarItem(
             icon: Icon(EvaIcons.clipboardOutline),
             title: Text("Laporan"),
-            activeColor: DefaultColors.orange,
+            activeColor: DefaultColors.dark,
             inactiveColor: DefaultColors.blue,
           ),
           BottomNavyBarItem(
             icon: Icon(EvaIcons.giftOutline),
             title: Text("Donasi"),
-            activeColor: DefaultColors.orange,
+            activeColor: DefaultColors.dark,
             inactiveColor: DefaultColors.blue,
           ),
         ],

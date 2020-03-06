@@ -15,6 +15,7 @@ import 'package:toast/toast.dart';
 
 void main() => runApp(
       MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
           "/": (context) => Splash(),
@@ -33,7 +34,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  final FlareControls _flareControls = FlareControls();
   FirebaseUser user;
 
   @override
@@ -49,10 +49,10 @@ class _SplashState extends State<Splash> {
   onDoneLoading() async{
     AuthServices().getUser().then((user) {
       if(user != null){
-        Navigator.pushNamedAndRemoveUntil(context, "/home", ModalRoute.withName("/"));
+        Navigator.pushReplacementNamed(context, "/home");
         Toast.show("Selamat Datang ${user.displayName}", context, duration: Toast.LENGTH_SHORT);
       }else if (user == null) {
-        Navigator.pushNamedAndRemoveUntil(context, "/main", ModalRoute.withName("/"));
+        Navigator.pushReplacementNamed(context, "/main");
       }
       
     });
@@ -60,8 +60,9 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-          child: Container(
+    return Scaffold(
+      backgroundColor: DefaultColors.light,
+          body: Container(
         decoration: BoxDecoration(
            image: DecorationImage(image: AssetImage("assets/images/bg_splash.png"),fit: BoxFit.cover)
         ),

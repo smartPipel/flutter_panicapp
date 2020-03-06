@@ -15,17 +15,17 @@ import 'package:panicapp/components/alertLaporan.dart';
   ) {
     return Container(
       decoration: BoxDecoration(
-        color: numberColor,
-        boxShadow: [
-          new BoxShadow(
-              color: Colors.black12, offset: new Offset(0, 3), blurRadius: 6)
-        ],
-        borderRadius: BorderRadius.circular(15),
+        color: Colors.grey[300],
+        // boxShadow: [
+        //   new BoxShadow(
+        //       color: Colors.black12, offset: new Offset(0, 3), blurRadius: 6)
+        // ],
+        borderRadius: BorderRadius.circular(10),
       ),
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.only(top: 20),
-      width: MediaQuery.of(context).size.width /1.3,
-      height: 120,
+      width: MediaQuery.of(context).size.width /1.4,
+      height: 100,
       child: Column(
         children: <Widget>[
           Row(
@@ -35,7 +35,7 @@ import 'package:panicapp/components/alertLaporan.dart';
                 children: <Widget>[
                   Text(
                     historiData,
-                    style: fontBold(50, DefaultColors.dark),
+                    style: fontBold(50, numberColor),
                   ),
                   Text(caption, style: fontBold(18, DefaultColors.darken)),
                 ],

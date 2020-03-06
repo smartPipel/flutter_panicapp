@@ -150,68 +150,7 @@ class _LaporanActState extends State<LaporanAct> {
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                margin: EdgeInsets.only(top: 20, bottom: 0),
-                padding: EdgeInsets.only(bottom: 20),
-                child: Stack(
-                  children: <Widget>[
-                    StreamBuilder<QuerySnapshot>(
-                      stream: orderByNameDesc == true
-                          ? _firestore
-                              .collection('laporan')
-                              .orderBy("nama_pelapor", descending: true)
-                              .snapshots()
-                          : orderByNameAsc == true
-                              ? _firestore
-                                  .collection('laporan')
-                                  .orderBy("nama_pelapor", descending: false)
-                                  .snapshots()
-                              : orderByJenis == true
-                                  ? _firestore
-                                      .collection('laporan')
-                                      .orderBy("jenis_laporan",
-                                          descending: true)
-                                      .snapshots()
-                                  : _firestore
-                                      .collection('laporan')
-                                      .orderBy("waktu", descending: true)
-                                      .snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                                ConnectionState.waiting ||
-                            snapshot.connectionState == ConnectionState.none) {
-                          return LoadingFlare(context);
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.done) {
-                          return LoadingFlare(context);
-                        } else if (!snapshot.hasData) {
-                          Center(
-                              child: Text(
-                            "No Data Found",
-                            style: fontBold(40, Colors.orangeAccent),
-                          ));
-                        }
-                        return Container(
-                          child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            itemCount: snapshot.data.documents.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding: EdgeInsets.only(bottom: 8.0),
-                                child: reportCard(
-                                    context, snapshot.data.documents[index]),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            
           ],
         ),
       ),

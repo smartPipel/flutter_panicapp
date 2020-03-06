@@ -11,9 +11,10 @@ class AuthServices with ChangeNotifier {
   String photoUri;
 
   Future logout(BuildContext context) async {
-    Navigator.pushNamedAndRemoveUntil(context,'/main', ModalRoute.withName('/'));
+    Navigator.pushReplacementNamed(context,'/main');
     await fAuth.signOut();
     await gSignin.signOut();
+    Toast.show("Logout Berhasil", context, duration: Toast.LENGTH_LONG);
   }
 
   Future<FirebaseUser> getUser() async {
@@ -52,8 +53,8 @@ class AuthServices with ChangeNotifier {
           duration: Toast.LENGTH_LONG);
     } finally {
       if (user != null) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, "/home", ModalRoute.withName("/"));
+        Navigator.pushReplacementNamed(
+            context, "/home");
         Toast.show("Selamat Datang ${user.displayName}", context,
             duration: Toast.LENGTH_SHORT);
       } else {
@@ -84,8 +85,8 @@ class AuthServices with ChangeNotifier {
       print("Maaf Ada Kesalahan ${e.toString()}");
     } finally {
       user != null
-          ? Navigator.pushNamedAndRemoveUntil(
-              context, "/home", ModalRoute.withName("/"))
+          ? Navigator.pushReplacementNamed(
+              context, "/home")
           : Toast.show("Gagal Register", context, duration: Toast.LENGTH_SHORT);
       addUserData(username, email, telephone, null, "${user.uid}");
     }
@@ -112,8 +113,8 @@ class AuthServices with ChangeNotifier {
 
     addUserData(user.displayName, user.email, null, user.photoUrl,"${user.uid}");
 
-    Navigator.pushNamedAndRemoveUntil(
-        context, "/home", ModalRoute.withName("/"));
+    Navigator.pushReplacementNamed(
+        context, "/home");
 
     Toast.show("Hai, ${currentUser.displayName}", context,
         duration: Toast.LENGTH_SHORT);

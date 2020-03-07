@@ -12,7 +12,7 @@ class _DonasiState extends State<Donasi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DefaultColors.darken,
+      backgroundColor: DefaultColors.light,
       body: SafeArea(child: Container(child: Center(
         child: Image.asset("assets/images/coming_soon.png"),
       ),)),

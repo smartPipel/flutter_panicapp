@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:panicapp/collection/collections.dart';
+import 'package:panicapp/components/alertLaporan.dart';
 import 'package:panicapp/components/cardReport.dart';
 import 'package:panicapp/components/infoMenu.dart';
 import 'package:panicapp/model/auth/auth.dart';
@@ -258,7 +259,7 @@ class _UserDashboardState extends State<UserDashboard> {
                               child: infoMenu(
                                   context,
                                   "collections",
-                                  "${snapshot.data?.documents?.length ?? 0}",
+                                  "${snapshot.data.documents?.length ?? 0}",
                                   "Jumlah",
                                   DefaultColors.lighten),
                             );
@@ -280,7 +281,16 @@ class _UserDashboardState extends State<UserDashboard> {
                   children: <Widget>[
                     InkWell(
                       onTap: (){
-                        Toast.show("Ini Neumorphism", context,duration: Toast.LENGTH_LONG);
+                         showDialog(
+                          child: Alert().alertDialogLaporan(
+                              context,
+                              "Kebakaran",
+                              user?.displayName,
+                              user?.email,
+                              user?.photoUrl,
+                              user?.uid,
+                              userLocation),
+                          context: context);
                       },
                       child: Container(
                         width: 80,
@@ -318,7 +328,16 @@ class _UserDashboardState extends State<UserDashboard> {
                     Spacer(),
                     InkWell(
                       onTap: (){
-                        Toast.show("Ini Neumorphism", context,duration: Toast.LENGTH_LONG);
+                         showDialog(
+                          child: Alert().alertDialogLaporan(
+                              context,
+                              "Kriminalitas",
+                              user?.displayName,
+                              user?.email,
+                              user?.photoUrl,
+                              user?.uid,
+                              userLocation),
+                          context: context);
                       },
                       child: Container(
                         width: 80,
@@ -347,7 +366,7 @@ class _UserDashboardState extends State<UserDashboard> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top:5.0),
-                              child: Text("Kejahatan", style: fontSemi(14, DefaultColors.dark),),
+                              child: Text("Kriminalitas", style: fontSemi(14, DefaultColors.dark),),
                             )
                           ],
                         ),
@@ -356,7 +375,16 @@ class _UserDashboardState extends State<UserDashboard> {
                     Spacer(),
                     InkWell(
                       onTap: (){
-                        Toast.show("Ini Neumorphism", context,duration: Toast.LENGTH_LONG);
+                        showDialog(
+                          child: Alert().alertDialogLaporan(
+                              context,
+                              "Kecelakaan",
+                              user?.displayName,
+                              user?.email,
+                              user?.photoUrl,
+                              user?.uid,
+                              userLocation),
+                          context: context);
                       },
                       child: Container(
                         width: 80,

@@ -42,7 +42,7 @@ import 'package:panicapp/components/alertLaporan.dart';
                           child: Alert().alertDialogLaporan(
                               context,
                               caption,
-                              icon,
+                              
                               nama,
                               email,
                               photo,

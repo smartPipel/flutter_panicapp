@@ -11,7 +11,7 @@ class Alert extends StatelessWidget {
     );
   }
 
- alertDialogLaporan(BuildContext context, String kejadian, String images, String nama, String email, String photo, String uid, String lokasi) {
+ alertDialogLaporan(BuildContext context, String kejadian,String nama, String email, String photo, String uid, String lokasi) {
    return AlertDialog(
     elevation: 10,
     content: Container(

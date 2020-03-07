@@ -17,16 +17,18 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
   int _selectedIndex = 0;
-  final _layoutPage = [User(), LaporanAct(), Donasi()];
+  final _layoutPage = [User(), Donasi()];
   FirebaseUser user;
+  TabController _controller;
 
   PageController _pageController;
 
   @override
   void initState() {
     super.initState();
+    _controller = TabController(length: 2, vsync: this);
 
     AuthServices().getUser().then((u) {
       setState(() {
@@ -42,80 +44,79 @@ class _HomeScreenState extends State<HomeScreen> {
       _selectedIndex = index;
     });
   }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          height: 160,
-          padding: EdgeInsets.only(top: 35, left: 20),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Hai,\n${user?.displayName}",
-                style: fontBold(16, DefaultColors.dark),
-              ),
-            ],
+      
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(150),
+              child: AppBar(
+          bottom: TabBar(
+            indicatorWeight: 3,
+            indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(width: 5.0,color: DefaultColors.orange,style: BorderStyle.solid,),
+              insets: EdgeInsets.symmetric(horizontal:20.0)
+            ),
+            controller: _controller,
+            tabs: <Widget>[
+            Tab(child: Text("DASHBOARD", style: fontSemi(14, DefaultColors.dark),),),
+            Tab(child: Text("DONASI",style: fontSemi(14, DefaultColors.dark),),),
+          ]),
+          flexibleSpace: Container(
+            height: 160,
+            padding: EdgeInsets.only(bottom: 20, left: 20),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  
+                  "Hi, ${user?.displayName}",
+                  style: fontBold(18, DefaultColors.dark),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
           ),
+          titleSpacing: 20,
+          backgroundColor: DefaultColors.light,
+          elevation: 0,
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 20, top:30),
+              child: InkWell(
+                  child: Icon(
+                    EvaIcons.logOutOutline,
+                    color: Colors.red,
+                  ),
+                  onTap: () => AuthServices().logout(context)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 20, top:30),
+              child: InkWell(
+                  child: Icon(
+                    EvaIcons.settings,
+                    color: Colors.grey,
+                  ),
+                  onTap: () =>
+                      Toast.show("Setting", context, duration: Toast.LENGTH_LONG)),
+            )
+          ],
         ),
-        titleSpacing: 20,
-        backgroundColor: DefaultColors.light,
-        elevation: 0,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: InkWell(
-                child: Icon(
-                  EvaIcons.logOutOutline,
-                  color: Colors.red,
-                ),
-                onTap: () =>
-                    Toast.show("msg", context, duration: Toast.LENGTH_LONG)),
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: InkWell(
-                child: Icon(
-                  EvaIcons.settings,
-                  color: Colors.grey,
-                ),
-                onTap: () =>
-                    Toast.show("msg", context, duration: Toast.LENGTH_LONG)),
-          )
-        ],
       ),
       backgroundColor: DefaultColors.light,
-      body: _layoutPage.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavyBar(
-        showElevation: false,
-        animationDuration: Duration(milliseconds: 350),
-        selectedIndex: _selectedIndex,
-        onItemSelected: (index) => setState(() {
-          _onTapItem(index);
-        }),
-        backgroundColor: Colors.grey[300],
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-            icon: Icon(EvaIcons.homeOutline),
-            title: Text("Home"),
-            activeColor: DefaultColors.dark,
-            inactiveColor: DefaultColors.blue,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(EvaIcons.clipboardOutline),
-            title: Text("Laporan"),
-            activeColor: DefaultColors.dark,
-            inactiveColor: DefaultColors.blue,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(EvaIcons.giftOutline),
-            title: Text("Donasi"),
-            activeColor: DefaultColors.dark,
-            inactiveColor: DefaultColors.blue,
-          ),
-        ],
-      ),
+
+      body: TabBarView(
+        controller: _controller,
+        children: <Widget>[
+        User(),
+        Donasi()
+      ])
     );
   }
 }

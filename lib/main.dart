@@ -69,7 +69,7 @@ class _SplashState extends State<Splash> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Center(
-          child: Image.asset("assets/images/icons/logo.png")
+          child: Image.asset("assets/images/icons/logo.png",height: 80, width: 80,)
         ),
       ),
     );

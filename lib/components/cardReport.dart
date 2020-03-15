@@ -6,11 +6,10 @@ import 'package:panicapp/collection/collections.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 Widget reportCard(BuildContext context, DocumentSnapshot ds) {
-  return AnimatedContainer(
-    duration: Duration(milliseconds: 500),
+  return Container(
     width: MediaQuery.of(context).size.width / 1.1,
     height: MediaQuery.of(context).size.height / 6,
-    margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+    margin: EdgeInsets.only(top: 10, left: 15, right: 15),
     decoration: BoxDecoration(
       color: Colors.grey[300],
       borderRadius: BorderRadius.circular(10),
@@ -33,15 +32,16 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                 : ds.data['jenis_laporan'] == "Kriminalitas"
                     ? DefaultColors.blue
                     : DefaultColors.green,
-            borderRadius: BorderRadius.only(topLeft:Radius.circular(10),bottomLeft: Radius.circular(10)),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
           ),
         ),
         Row(
           children: <Widget>[
             Align(
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
               child: Container(
-                margin: EdgeInsets.only(right: 10, left: 20, top: 10),
+                margin: EdgeInsets.only(right: 10, left: 20, top: 0),
                 height: 60,
                 width: 60,
                 child: CircleAvatar(
@@ -73,18 +73,16 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                     ),
                   ),
                   Container(
-                    height: 40,
-                    margin: EdgeInsets.only(top: 10, left: 0),
+                    height: 30,
+                    margin: EdgeInsets.only(top: 5, left: 0),
                     width: 180,
                     child: Row(
                       children: <Widget>[
                         Align(
                           alignment: Alignment.topCenter,
                           child: Container(
-                          
                             margin: EdgeInsets.only(right: 0),
                             width: 30,
-                            
                             child: Icon(
                               LineAwesomeIcons.map_pin,
                             ),
@@ -94,7 +92,7 @@ Widget reportCard(BuildContext context, DocumentSnapshot ds) {
                           alignment: Alignment.topCenter,
                           child: Container(
                             width: 150,
-                            margin: EdgeInsets.only(top:10),
+                            margin: EdgeInsets.only(top: 10),
                             child: Text(
                               ds.data['lokasi'],
                               style: fontSemi(14, DefaultColors.darken),

@@ -30,7 +30,7 @@ class AuthServices with ChangeNotifier {
             ? {
                 "username": username,
                 "email": email,
-                "photo_url": photo_url,
+                "photourl": photo_url,
                 "phone_number": "+62 ...."
               }
             : {
@@ -72,10 +72,9 @@ class AuthServices with ChangeNotifier {
           .user;
 
       Firestore.instance
-          .collection("user_phone")
+          .collection("user_phone") 
           .document("${user?.uid}")
           .setData({"phone_number": telephone});
-
 
       UserUpdateInfo userUpdateInfo = UserUpdateInfo();
 

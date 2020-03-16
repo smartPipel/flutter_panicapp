@@ -66,17 +66,42 @@ class Alert extends StatelessWidget {
                 'waktu': new DateTime.now(),
                 'uid': uid,
               }).whenComplete(() {
-                Toast.show("Berhasil Upload", context,duration: Toast.LENGTH_LONG);
+                Toast.show("Berhasil Upload", context,
+                    duration: Toast.LENGTH_LONG);
               });
               Navigator.pop(context);
             },
-            child: Text("Laporkan"),
+           highlightColor: Colors.white,
+          splashColor: Colors.white,
+          child: Container(
+            child: Align(alignment: Alignment.center,child: Text("Laporkan", style: fontSemi(16, DefaultColors.light),)),
+            width: 100,
+            height: 40,
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: DefaultColors.orange,
+              borderRadius: BorderRadius.circular(20)
+            ),),
           ),
         ),
         Container(
           margin: EdgeInsets.all(20),
           child: InkWell(
-            child: Text("Batal"),
+            highlightColor: Colors.white,
+            splashColor: Colors.white,
+            child: Container(
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Batal",
+                    style: fontSemi(16, DefaultColors.light),
+                  )),
+              width: 100,
+              height: 40,
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(20)),
+            ),
             onTap: () {
               Navigator.pop(context);
             },

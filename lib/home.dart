@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen>
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(120),
           child: AppBar(
-            bottom: TabBar(
+            bottom: TabBar(          
                 indicatorWeight: 3,
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(

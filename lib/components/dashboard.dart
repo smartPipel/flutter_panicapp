@@ -301,7 +301,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 context: context);
                           },
                           child: Container(
-                            // margin: EdgeInsets.only(right: 10),
+                            margin: EdgeInsets.only(right: 10),
                             width: 80,
                             height: 80,
                             decoration: BoxDecoration(
@@ -410,7 +410,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 context: context);
                           },
                           child: Container(
-                            // margin: EdgeInsets.only(left: 10),
+                            margin: EdgeInsets.only(left: 10),
                             width: 80,
                             height: 80,
                             decoration: BoxDecoration(
@@ -488,10 +488,8 @@ class _UserDashboardState extends State<UserDashboard> {
                                       ConnectionState.waiting ||
                                   snapshot.connectionState ==
                                       ConnectionState.none) {
-                                return Text("Loading");
-                              } else if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return Text("Loading");
+                                return CircularProgressIndicator();
+                              
                               } else if (!snapshot.hasData) {
                                 Center(
                                     child: Text(

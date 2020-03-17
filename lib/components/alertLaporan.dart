@@ -55,7 +55,7 @@ class Alert extends StatelessWidget {
       contentTextStyle: fontSemi(18, DefaultColors.dark),
       actions: <Widget>[
         Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.all(0),
           child: InkWell(
             onTap: () async {
               Firestore.instance.collection("laporan").add({
@@ -77,7 +77,7 @@ class Alert extends StatelessWidget {
             child: Align(alignment: Alignment.center,child: Text("Laporkan", style: fontSemi(16, DefaultColors.light),)),
             width: 100,
             height: 40,
-            margin: EdgeInsets.all(10),
+            margin: EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: DefaultColors.orange,
               borderRadius: BorderRadius.circular(20)
@@ -85,7 +85,7 @@ class Alert extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.all(0),
           child: InkWell(
             highlightColor: Colors.white,
             splashColor: Colors.white,
@@ -98,7 +98,7 @@ class Alert extends StatelessWidget {
                   )),
               width: 100,
               height: 40,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Colors.red, borderRadius: BorderRadius.circular(20)),
             ),

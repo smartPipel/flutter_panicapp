@@ -54,7 +54,7 @@ class _UserDashboardState extends State<UserDashboard> {
       child: Column(
         children: <Widget>[
           Expanded(
-                  child: Container(
+            child: Container(
               child: Column(
                 children: <Widget>[
                   // Container(
@@ -191,19 +191,21 @@ class _UserDashboardState extends State<UserDashboard> {
                         width: MediaQuery.of(context).size.width,
                         height: 180,
                         child: ListView(
-                          physics:
-                              PageScrollPhysics(parent: BouncingScrollPhysics()),
+                          physics: PageScrollPhysics(
+                              parent: BouncingScrollPhysics()),
                           scrollDirection: Axis.horizontal,
                           children: <Widget>[
                             StreamBuilder<QuerySnapshot>(
                               stream: Firestore.instance
                                   .collection("laporan")
-                                  .where('jenis_laporan', isEqualTo: "Kebakaran")
+                                  .where('jenis_laporan',
+                                      isEqualTo: "Kebakaran")
                                   .where('uid', isEqualTo: user?.uid)
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 return Container(
-                                  margin:  EdgeInsets.only(top:10, left: 20, right: 0, bottom: 20),
+                                  margin: EdgeInsets.only(
+                                      top: 10, left: 20, right: 0, bottom: 20),
                                   child: infoMenu(
                                       context,
                                       "collections",
@@ -216,12 +218,14 @@ class _UserDashboardState extends State<UserDashboard> {
                             StreamBuilder<QuerySnapshot>(
                               stream: Firestore.instance
                                   .collection("laporan")
-                                  .where('jenis_laporan', isEqualTo: "Kecelakaan")
+                                  .where('jenis_laporan',
+                                      isEqualTo: "Kecelakaan")
                                   .where('uid', isEqualTo: user?.uid)
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 return Container(
-                                  margin:  EdgeInsets.only(top:10, left: 20, right: 0, bottom: 20),
+                                  margin: EdgeInsets.only(
+                                      top: 10, left: 20, right: 0, bottom: 20),
                                   child: infoMenu(
                                       context,
                                       "collections",
@@ -234,12 +238,14 @@ class _UserDashboardState extends State<UserDashboard> {
                             StreamBuilder<QuerySnapshot>(
                               stream: Firestore.instance
                                   .collection("laporan")
-                                  .where('jenis_laporan', isEqualTo: "Kriminalitas")
+                                  .where('jenis_laporan',
+                                      isEqualTo: "Kriminalitas")
                                   .where('uid', isEqualTo: user?.uid)
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 return Container(
-                                  margin: EdgeInsets.only(top:10, left: 20, right: 0, bottom: 20),
+                                  margin: EdgeInsets.only(
+                                      top: 10, left: 20, right: 0, bottom: 20),
                                   child: infoMenu(
                                       context,
                                       "collections",
@@ -256,7 +262,8 @@ class _UserDashboardState extends State<UserDashboard> {
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 return Container(
-                                  margin: EdgeInsets.only(top:10, left: 20, bottom: 20),
+                                  margin: EdgeInsets.only(
+                                      top: 10, left: 20, bottom: 20),
                                   child: infoMenu(
                                       context,
                                       "collections",
@@ -281,111 +288,72 @@ class _UserDashboardState extends State<UserDashboard> {
                     child: Row(
                       children: <Widget>[
                         InkWell(
-                          onTap: (){
-                             showDialog(
-                              child: Alert().alertDialogLaporan(
-                                  context,
-                                  "Kebakaran",
-                                  user?.displayName,
-                                  user?.email,
-                                  user?.photoUrl,
-                                  user?.uid,
-                                  userLocation),
-                              context: context);
-                          },
-                          child: Container(
-                            width: 80,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 10,
-                                  offset: Offset(-5, -5),
-                                  color: Colors.white,
-                                ),
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  offset: Offset(3, 3),
-                                  color: Colors.grey,
-                                )
-                              ],
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(top:5.0),
-                                  child: Icon(LineAwesomeIcons.fire, size: 45, color: Colors.orangeAccent,),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:5.0),
-                                  child: Text("Kebakaran", style: fontSemi(14, DefaultColors.dark),),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap: (){
-                             showDialog(
-                              child: Alert().alertDialogLaporan(
-                                  context,
-                                  "Kriminalitas",
-                                  user?.displayName,
-                                  user?.email,
-                                  user?.photoUrl,
-                                  user?.uid,
-                                  userLocation),
-                              context: context);
-                          },
-                          child: Container(
-                            width: 80,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 10,
-                                  offset: Offset(-5, -5),
-                                  color: Colors.white,
-                                ),
-                                BoxShadow(
-                                  blurRadius: 4,
-                                  offset: Offset(3, 3),
-                                  color: Colors.grey,
-                                )
-                              ],
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(top:5.0),
-                                  child: Icon(LineAwesomeIcons.balance_scale, size: 45, color: DefaultColors.blue,),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:5.0),
-                                  child: Text("Kriminalitas", style: fontSemi(14, DefaultColors.dark),),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap: (){
+                          onTap: () {
                             showDialog(
-                              child: Alert().alertDialogLaporan(
-                                  context,
-                                  "Kecelakaan",
-                                  user?.displayName,
-                                  user?.email,
-                                  user?.photoUrl,
-                                  user?.uid,
-                                  userLocation),
-                              context: context);
+                                child: Alert().alertDialogLaporan(
+                                    context,
+                                    "Kebakaran",
+                                    user?.displayName,
+                                    user?.email,
+                                    user?.photoUrl,
+                                    user?.uid,
+                                    userLocation),
+                                context: context);
+                          },
+                          child: Container(
+                            // margin: EdgeInsets.only(right: 10),
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 10,
+                                  offset: Offset(-5, -5),
+                                  color: Colors.white,
+                                ),
+                                BoxShadow(
+                                  blurRadius: 4,
+                                  offset: Offset(3, 3),
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Icon(
+                                    LineAwesomeIcons.fire,
+                                    size: 45,
+                                    color: Colors.orangeAccent,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Text(
+                                    "Kebakaran",
+                                    style: fontSemi(14, DefaultColors.dark),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                                child: Alert().alertDialogLaporan(
+                                    context,
+                                    "Kriminalitas",
+                                    user?.displayName,
+                                    user?.email,
+                                    user?.photoUrl,
+                                    user?.uid,
+                                    userLocation),
+                                context: context);
                           },
                           child: Container(
                             width: 80,
@@ -409,12 +377,74 @@ class _UserDashboardState extends State<UserDashboard> {
                             child: Column(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(top:5.0),
-                                  child: Icon(LineAwesomeIcons.medkit, size: 45, color: DefaultColors.green,),
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Icon(
+                                    LineAwesomeIcons.balance_scale,
+                                    size: 45,
+                                    color: DefaultColors.blue,
+                                  ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top:5.0),
-                                  child: Text("Kecelakaan", style: fontSemi(14, DefaultColors.dark),),
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Text(
+                                    "Kriminalitas",
+                                    style: fontSemi(14, DefaultColors.dark),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                                child: Alert().alertDialogLaporan(
+                                    context,
+                                    "Kecelakaan",
+                                    user?.displayName,
+                                    user?.email,
+                                    user?.photoUrl,
+                                    user?.uid,
+                                    userLocation),
+                                context: context);
+                          },
+                          child: Container(
+                            // margin: EdgeInsets.only(left: 10),
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 10,
+                                  offset: Offset(-5, -5),
+                                  color: Colors.white,
+                                ),
+                                BoxShadow(
+                                  blurRadius: 4,
+                                  offset: Offset(3, 3),
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Icon(
+                                    LineAwesomeIcons.medkit,
+                                    size: 45,
+                                    color: DefaultColors.green,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Text(
+                                    "Kecelakaan",
+                                    style: fontSemi(14, DefaultColors.dark),
+                                  ),
                                 )
                               ],
                             ),
@@ -424,39 +454,40 @@ class _UserDashboardState extends State<UserDashboard> {
                     ),
                   ),
                   Expanded(
-                      child: Container(
-                      height: MediaQuery.of(context).size.height/2.5,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 2.5,
                       margin: EdgeInsets.only(top: 20, bottom: 0),
                       padding: EdgeInsets.only(bottom: 0),
                       child: Stack(
                         children: <Widget>[
                           StreamBuilder<QuerySnapshot>(
-                             stream: 
-                             //orderByNameDesc == true
-                            //     ? _firestore
-                            //         .collection('laporan')
-                            //         .orderBy("nama_pelapor", descending: true)
-                            //         .snapshots()
-                            //     : orderByNameAsc == true
-                            //         ? _firestore
-                            //             .collection('laporan')
-                            //             .orderBy("nama_pelapor", descending: false)
-                            //             .snapshots()
-                            //         : orderByJenis == true
-                            //             ? _firestore
-                            //                 .collection('laporan')
-                            //                 .orderBy("jenis_laporan",
-                            //                     descending: true)
-                            //                 .snapshots()
-                            //             : 
-                                          Firestore.instance
-                                            .collection('laporan')
-                                            .orderBy("waktu", descending: true)
-                                            .snapshots(),
+                            stream:
+                                //orderByNameDesc == true
+                                //     ? _firestore
+                                //         .collection('laporan')
+                                //         .orderBy("nama_pelapor", descending: true)
+                                //         .snapshots()
+                                //     : orderByNameAsc == true
+                                //         ? _firestore
+                                //             .collection('laporan')
+                                //             .orderBy("nama_pelapor", descending: false)
+                                //             .snapshots()
+                                //         : orderByJenis == true
+                                //             ? _firestore
+                                //                 .collection('laporan')
+                                //                 .orderBy("jenis_laporan",
+                                //                     descending: true)
+                                //                 .snapshots()
+                                //             :
+                                Firestore.instance
+                                    .collection('laporan')
+                                    .orderBy("waktu", descending: true)
+                                    .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                       ConnectionState.waiting ||
-                                  snapshot.connectionState == ConnectionState.none) {
+                                  snapshot.connectionState ==
+                                      ConnectionState.none) {
                                 return Text("Loading");
                               } else if (snapshot.connectionState ==
                                   ConnectionState.done) {
@@ -475,8 +506,8 @@ class _UserDashboardState extends State<UserDashboard> {
                                   itemBuilder: (context, index) {
                                     return Container(
                                       padding: EdgeInsets.only(bottom: 8.0),
-                                      child: reportCard(
-                                          context, snapshot.data.documents[index]),
+                                      child: reportCard(context,
+                                          snapshot.data.documents[index]),
                                     );
                                   },
                                 ),
